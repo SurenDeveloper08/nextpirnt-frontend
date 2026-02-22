@@ -4,12 +4,19 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
 
   images: {
-    domains: ["images.unsplash.com"],
+    // Note: 'remotePatterns' is the modern preferred way over 'domains'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
   },
 
   devIndicators: {
-    buildActivity: false,
-    buildActivityPosition: "bottom-right", // optional
+    // buildActivity is removed. 
+    // Use appIsrStatus if you want to control the revalidation indicator.
+    appIsrStatus: false, 
   },
 };
 
