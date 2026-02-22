@@ -7,7 +7,7 @@ import Img from '../../assets/photocopy.avif'
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen lg:h-screen flex items-center bg-[#f8f9fa] overflow-hidden pt-20 lg:pt-0 py-12">
+    <section className="relative w-full min-h-screen lg:h-screen flex items-center bg-[#f8f9fa] overflow-hidden pt-20 lg:pt-0 ">
 
       {/* Background Decor - Optimized with pointer-events-none to prevent interaction lag */}
       <div className="absolute top-[10%] left-[5%] w-32 h-32 bg-gray-200 rounded-full blur-[80px] opacity-30 pointer-events-none animate-pulse" />
