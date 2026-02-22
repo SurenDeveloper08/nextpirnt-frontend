@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+
+  images: {
+    domains: ["images.unsplash.com"],
+  },
+
+  devIndicators: {
+    buildActivity: false,
+    buildActivityPosition: "bottom-right", // optional
+  },
 };
 
 export default nextConfig;
