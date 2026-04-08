@@ -7,7 +7,7 @@ const brands = [
   { name: "Canon", src: "/brands/canon.jpg" },
   { name: "Konica Minolta", src: "/brands/konica-monolta.jpg" },
   { name: "Kyocera", src: "/brands/kyocera.jpg" },
-  { name: "Sharp", src: "/brands/sharp.jpg" },
+  { name: "Sharp", src: "/brands/sharpprinter.jpg" },
   { name: "Epson", src: "/brands/epson.jpg" },
 ];
 
