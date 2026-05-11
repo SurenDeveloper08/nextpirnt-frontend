@@ -1,7 +1,7 @@
 import ProductListing from "@/app/components/ProductListingPage";
 import { products } from "@/data/products";
 
-export default function ConsumablesPage() {
+export default function Page() {
   return (
     <ProductListing
       title="Consumables"

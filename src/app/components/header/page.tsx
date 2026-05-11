@@ -83,7 +83,7 @@ const navLinks = [
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+ const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
 
   // SEARCH
   const [searchOpen, setSearchOpen] = useState(false);

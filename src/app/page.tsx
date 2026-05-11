@@ -6,15 +6,15 @@ const Hero = dynamic(() => import("./components/hero/page"), {
   loading: () => null,
 });
 
-const Services = dynamic(() => import("./components/Services"), {
+const Services = dynamic(() => import("./components/services"), {
   ssr: true,
   loading: () => null,
 });
 
-const AboutUs = dynamic(() => import("./components/AboutUs"), {
-  ssr: true,
-  loading: () => null,
-});
+// const AboutUs = dynamic(() => import("./components/AboutUs"), {
+//   ssr: true,
+//   loading: () => null,
+// });
 
 const HomeProductsSection = dynamic(
   () => import("./components/HomeProductsSection"),
@@ -34,15 +34,15 @@ const BrandsSupport = dynamic(() => import("./components/BrandsSupport"), {
   loading: () => null,
 });
 
-const AMCPlans = dynamic(() => import("./components/AMCPlans"), {
-  ssr: true,
-  loading: () => null,
-});
+// const AMCPlans = dynamic(() => import("./components/AMCPlans"), {
+//   ssr: true,
+//   loading: () => null,
+// });
 
-const ProcessSection = dynamic(() => import("./components/ProcessSection"), {
-  ssr: true,
-  loading: () => null,
-});
+// const ProcessSection = dynamic(() => import("./components/ProcessSection"), {
+//   ssr: true,
+//   loading: () => null,
+// });
 
 const ContactSection = dynamic(() => import("./components/ContactSection"), {
   ssr: true,
