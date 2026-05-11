@@ -6,7 +6,7 @@ const Hero = dynamic(() => import("./components/hero/page"), {
   loading: () => null,
 });
 
-const Services = dynamic(() => import("./components/services"), {
+const Services = dynamic(() => import("./components/ServicesSection"), {
   ssr: true,
   loading: () => null,
 });

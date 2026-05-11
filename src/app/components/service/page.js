@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Img from '../../assets/photocopy.avif'; // Update with your actual assets
+import Img from '../../assets/product.png'; // Update with your actual assets
 
 const Service = () => {
     const services = [

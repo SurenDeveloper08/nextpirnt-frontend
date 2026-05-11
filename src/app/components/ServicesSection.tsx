@@ -36,7 +36,7 @@ const services = [
   }
 ];
 
-const ProfessionalServiceGrid = () => {
+const ServicesSection = () => {
   return (
     <section className="py-20 bg-white" id="services">
       <div className="max-w-7xl mx-auto px-6">
@@ -100,4 +100,4 @@ const ProfessionalServiceGrid = () => {
   );
 };
 
-export default ProfessionalServiceGrid;
+export default ServicesSection;
