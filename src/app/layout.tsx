@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const Header = dynamic(() => import("./components/header/page"), {
-  ssr: true,
-  loading: () => null,
-});
+import Header from "./components/header"
 
 const Footer = dynamic(() => import("./components/footer/page"), {
   ssr: true,
@@ -41,6 +39,8 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer/>
+                <Toaster position="top-right" />
+
       </body>
     </html>
   );

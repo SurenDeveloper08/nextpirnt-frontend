@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const brands = [
   { name: "Canon", src: "/brands/canon.jpg" },
@@ -12,48 +12,37 @@ const brands = [
 ];
 
 export default function BrandSlider() {
-  const duplicatedBrands = [...brands, ...brands, ...brands];
+  const duplicatedBrands = [...brands, ...brands];
 
   return (
-    <section className="bg-white py-16 overflow-hidden border-b border-slate-100" aria-label="Authorized Brand Partners">
-      <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
-        <h2 className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-500">
-          Authorized <span className="text-red-600">Service</span> Partners
-        </h2>
-        <div className="h-0.5 w-12 bg-red-600 mx-auto mt-2"></div>
-      </div>
-
-      <div className="relative flex items-center">
-        {/* Infinite Auto-Slide with Framer Motion */}
-        <motion.div 
-          className="flex items-center gap-16 md:gap-28"
+    <section className="bg-white py-5 overflow-hidden">
+      <div className="relative max-w-6xl mx-auto overflow-hidden">
+        
+        <motion.div
+          className="flex items-center"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             ease: "linear",
-            duration: 25, // Lower for faster, higher for slower
+            duration: 15, // ✅ Optimized speed (mobile-friendly)
             repeat: Infinity,
           }}
-          whileHover={{ transition: { duration: 0.5 }, opacity: 0.8 }}
+          whileHover={{ animationPlayState: "paused" }} // ✅ pause on touch/hover
         >
           {duplicatedBrands.map((brand, index) => (
-            <div 
-              key={index} 
-              className="relative shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-110"
-              title={`Nexprint Support for ${brand.name}`}
+            <div
+              key={index}
+              className="flex-shrink-0 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 flex justify-center items-center"
             >
-              {/* No Grayscale - Pure Original Colors */}
               <img
                 src={brand.src}
-                alt={`${brand.name} official printer logo`}
-                className="h-10 md:h-14 w-auto object-contain pointer-events-none"
+                alt={`${brand.name} printer Abu Dhabi UAE`}
+                className="h-10 sm:h-9 md:h-10 object-contain"
+                loading="lazy"
               />
             </div>
           ))}
         </motion.div>
 
-        {/* Professional Edge Fades for Seamless Look */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/70 to-transparent z-10"></div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white via-white/70 to-transparent z-10"></div>
       </div>
     </section>
   );

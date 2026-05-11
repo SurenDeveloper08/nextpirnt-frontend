@@ -1,89 +1,108 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { ShieldCheck, Clock, Zap, Award, Headset, BadgeCheck } from "lucide-react";
+import { Clock, ShieldCheck, UserCheck, Zap } from 'lucide-react';
 
 const reasons = [
   {
-    title: "4-Hour Response Guarantee",
-    description: "Minimize downtime with the UAE's fastest technical support team. We reach your office within 4 hours of your service call.",
-    icon: <Clock className="w-10 h-10" />,
+    title: "FAST RESPONSE",
+    description: "On-site support within hours to ensure your office never stops.",
+    icon: <Clock className="w-10 h-10 text-[#e63946] stroke-[1.5]" />,
   },
   {
-    title: "Genuine OEM Consumables",
-    description: "We exclusively provide original toners and spare parts for Canon, Ricoh, and HP, ensuring 100% print quality and machine life.",
-    icon: <ShieldCheck className="w-10 h-10" />,
+    title: "GENUINE PARTS",
+    description: "100% OEM Guaranteed. We only use original high-quality components.",
+    icon: <ShieldCheck className="w-10 h-10 text-white stroke-[1.5]" />,
   },
   {
-    title: "Zero Capital Investment",
-    description: "Our flexible rental models allow you to upgrade your office technology without any upfront costs. Pay as you print.",
-    icon: <Zap className="w-10 h-10" />,
-  },
-  {
-    title: "Certified Brand Experts",
-    description: "Our engineers are factory-trained for Konica Minolta, Kyocera, and Sharp, providing expert network integration and setup.",
-    icon: <Award className="w-10 h-10" />,
-  },
-  {
-    title: "24/7 Remote Monitoring",
-    description: "Smart software alerts us when your toner is low or a part needs replacing before it breaks. Proactive maintenance at its best.",
-    icon: <Headset className="w-10 h-10" />,
-  },
-  {
-    title: "UAE Compliant & Licensed",
-    description: "A fully registered LLC based in the UAE. We provide official VAT invoices and transparent service contracts.",
-    icon: <BadgeCheck className="w-10 h-10" />,
+    title: "EXPERT TEAM",
+    description: "Certified technicians with years of experience in all major brands.",
+    icon: <UserCheck className="w-10 h-10 text-[#e63946] stroke-[1.5]" />,
   },
 ];
 
-export default function WhyChooseUs() {
+const WhyChooseUs = () => {
   return (
-    <section className="py-24 bg-white" aria-labelledby="nexprint-advantages">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header - Industrial Sharp Style */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="border-l-8 border-red-600 pl-6">
-            <h2 id="nexprint-advantages" className="text-sm font-black tracking-[0.4em] text-red-600 uppercase mb-2">
-              The Nexprint Advantage
-            </h2>
-            <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-slate-900">
-              Why Business Leaders <br /> <span className="text-red-600">Trust Us</span>
-            </h3>
-          </div>
-          <p className="max-w-md text-slate-500 font-medium leading-relaxed">
-            We don't just supply equipment; we manage your entire document workflow so you can focus on growing your business in the UAE.
-          </p>
+    <section className="py-20 bg-[#f8f9fa] relative overflow-hidden">
+
+      {/* --- MOBILE FRIENDLY DASHED CURVE --- */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 400 800" /* Vertical viewbox for mobile */
+          preserveAspectRatio="xMidYMid slice"
+          className="md:hidden" /* Only shows on mobile */
+        >
+          <path
+            d="M200 0C200 200 50 300 50 400C50 500 350 600 350 800"
+            stroke="#e63946"
+            strokeWidth="4"
+            strokeDasharray="10 10"
+            fill="none"
+          />
+        </svg>
+
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 1440 600"
+          className="hidden md:block" /* Only shows on desktop */
+        >
+          <path
+            d="M-100 250C150 100 450 450 720 300C990 150 1250 450 1550 250"
+            stroke="#e63946"
+            strokeWidth="2"
+            strokeDasharray="12 12"
+            fill="none"
+          />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter">
+            Why choose <span className="text-[#e63946]">us?</span>
+          </h2>
+          <div className="w-16 h-1 bg-[#e63946] mx-auto mt-4"></div>
         </div>
 
-        {/* Reasons Grid - No Border Radius */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-slate-200">
+        {/* Cards Container - Square & Simple */}
+        <div className="flex flex-col md:flex-row items-stretch justify-center gap-8 lg:gap-12">
           {reasons.map((reason, index) => (
-            <motion.div 
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="p-10 border-r border-b border-slate-200 hover:bg-slate-50 transition-all duration-300 group"
+              className={`
+                relative flex flex-col p-8 md:p-10 w-full md:w-[380px] min-h-[280px] transition-all duration-300
+                ${index === 1
+                  ? "bg-[#e63946] text-white shadow-xl md:-translate-y-6 z-20"
+                  : "bg-white text-slate-900 border border-slate-200 z-10"
+                }
+              `}
             >
-              {/* Icon with Sharp Background Wrap */}
-              <div className="inline-flex items-center justify-center mb-8 text-red-600 group-hover:scale-110 transition-transform duration-500">
+              {/* Icon Container */}
+              <div className="mb-6">
                 {reason.icon}
               </div>
-              
-              <h4 className="text-xl font-bold text-slate-900 mb-4 uppercase tracking-tight">
-                {reason.title}
-              </h4>
-              
-              <p className="text-slate-600 leading-relaxed text-sm md:text-base">
-                {reason.description}
-              </p>
-            </motion.div>
+
+              {/* Content */}
+              <div className="mt-auto">
+                <h3 className={`text-lg font-black tracking-tight uppercase mb-3 ${index === 1 ? "text-white" : "text-slate-900"}`}>
+                  {reason.title}
+                </h3>
+                <p className={`text-sm leading-relaxed font-bold uppercase tracking-wider ${index === 1 ? "text-white/90" : "text-slate-500"}`}>
+                  {reason.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );
-}
+};
+
+export default WhyChooseUs;

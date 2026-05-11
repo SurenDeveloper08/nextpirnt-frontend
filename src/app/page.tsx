@@ -6,10 +6,23 @@ const Hero = dynamic(() => import("./components/hero/page"), {
   loading: () => null,
 });
 
-const Services = dynamic(() => import("./components/ServicesSection"), {
+const Services = dynamic(() => import("./components/Services"), {
   ssr: true,
   loading: () => null,
 });
+
+const AboutUs = dynamic(() => import("./components/AboutUs"), {
+  ssr: true,
+  loading: () => null,
+});
+
+const HomeProductsSection = dynamic(
+  () => import("./components/HomeProductsSection"),
+  {
+    ssr: true,
+    loading: () => null,
+  }
+);
 
 const WhyChooseUs = dynamic(() => import("./components/WhyChooseUs"), {
   ssr: true,
@@ -21,7 +34,7 @@ const BrandsSupport = dynamic(() => import("./components/BrandsSupport"), {
   loading: () => null,
 });
 
-const ProductShowcase = dynamic(() => import("./components/ProductShowcase"), {
+const AMCPlans = dynamic(() => import("./components/AMCPlans"), {
   ssr: true,
   loading: () => null,
 });
@@ -31,7 +44,7 @@ const ProcessSection = dynamic(() => import("./components/ProcessSection"), {
   loading: () => null,
 });
 
-const LeadCaptureForm = dynamic(() => import("./components/LeadCaptureForm"), {
+const ContactSection = dynamic(() => import("./components/ContactSection"), {
   ssr: true,
   loading: () => null,
 });
@@ -69,10 +82,14 @@ export default function Home() {
       <Hero />
       <BrandsSupport />
       <Services />
-      <ProductShowcase />
+      {/* <AMCPlans/> */}
+       <HomeProductsSection/>
+      {/* <AboutUs/>
+      <ProductShowcase /> */}
       <WhyChooseUs />
-      <ProcessSection />
-      <LeadCaptureForm />
+      <ContactSection/>
+      {/* <ProcessSection />
+      <LeadCaptureForm /> */}
       {/* <AboutUs />
       <Service />
       <FeaturedProducts />

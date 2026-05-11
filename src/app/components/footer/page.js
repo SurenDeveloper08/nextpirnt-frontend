@@ -1,107 +1,124 @@
 "use client";
 
 import React from 'react';
-import { MapPin, Phone, Mail, Printer, ShieldCheck, PenTool, Droplets } from "lucide-react";
+import { Phone, Mail, MapPin, Linkedin, Instagram, Facebook, ArrowRight, Globe } from 'lucide-react';
 
-export default function Footer() {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const footerLinks = {
+    solutions: [
+      { name: 'Printer AMC Abu Dhabi', href: '#' },
+      { name: 'Photocopier Rental UAE', href: '#' },
+      { name: 'Enterprise MFP Sales', href: '#' },
+      { name: 'Original OEM Toners', href: '#' },
+      { name: 'Managed Print Services', href: '#' },
+    ],
+    company: [
+      { name: 'About Nexprint', href: '#' },
+      { name: 'Request a Quote', href: '#' },
+      { name: 'Service Support', href: '#' },
+      { name: 'Privacy Policy', href: '#' },
+      { name: 'Terms of Service', href: '#' },
+    ]
+  };
+
   return (
-    <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-8">
+    <footer className="bg-slate-950 text-white pt-20 pb-8 border-t-4 border-[#e63946]">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
-          {/* Brand & TRN */}
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col">
-              <span className="text-2xl font-black uppercase tracking-tighter text-slate-900">
-                NEX<span style={{ color: '#e63946' }}>PRINT</span>
-              </span>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                Industrial Printing Solutions
-              </p>
-            </div>
-            <p className="text-sm text-slate-500 leading-relaxed font-medium">
-              UAE&apos;s leading provider of managed print services, specialized in high-volume MFP rentals and maintenance.
+          {/* Column 1: Brand & UAE Identity */}
+          <div className="space-y-6">
+            <h2 className="text-3xl font-black italic tracking-tighter uppercase">
+              NEX<span className="text-[#e63946]">PRINT</span>
+            </h2>
+            <p className="text-slate-400 text-[11px] font-bold uppercase tracking-[0.15em] leading-relaxed">
+              Abu Dhabi's premier partner for office automation. Delivering high-performance printer rentals, sales, and specialized AMC services across the UAE.
             </p>
-            {/* <div className="bg-white border border-slate-200 p-4 inline-block">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">VAT TRN NUMBER</p>
-              <p className="text-sm font-bold text-slate-900">100XXXXXXXXXXXX</p>
-            </div> */}
-          </div>
-
-          {/* Services - SEO Linked */}
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-900 mb-6 border-l-4 pl-3" style={{ borderColor: '#e63946' }}>
-              Solutions
-            </h4>
-            <ul className="space-y-4 text-sm font-bold text-slate-500 uppercase tracking-tight">
-              <li className="flex items-center gap-2 hover:text-[#e63946] transition-colors cursor-pointer">
-                <Printer className="w-4 h-4" /> Printer Sale & Rental
-              </li>
-              <li className="flex items-center gap-2 hover:text-[#e63946] transition-colors cursor-pointer">
-                <ShieldCheck className="w-4 h-4" /> Annual Maintenance (AMC)
-              </li>
-              <li className="flex items-center gap-2 hover:text-[#e63946] transition-colors cursor-pointer">
-                <Droplets className="w-4 h-4" /> Toner & Consumables
-              </li>
-              <li className="flex items-center gap-2 hover:text-[#e63946] transition-colors cursor-pointer">
-                <PenTool className="w-4 h-4" /> Repair & On-Site Service
-              </li>
-            </ul>
-          </div>
-
-          {/* Brand SEO Links */}
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-900 mb-6 border-l-4 pl-3" style={{ borderColor: '#e63946' }}>
-              Support Hub
-            </h4>
-            <ul className="space-y-3 text-sm font-medium text-slate-500">
-              <li className="hover:text-[#e63946] transition-colors cursor-pointer">Canon Printer Repair Dubai</li>
-              <li className="hover:text-[#e63946] transition-colors cursor-pointer">Ricoh MFP Service Abu Dhabi</li>
-              <li className="hover:text-[#e63946] transition-colors cursor-pointer">Konica Minolta Support UAE</li>
-              <li className="hover:text-[#e63946] transition-colors cursor-pointer">Plotter Maintenance Sharjah</li>
-              <li className="hover:text-[#e63946] transition-colors cursor-pointer">Kyocera Service Center</li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-slate-900 mb-6 border-l-4 pl-3" style={{ borderColor: '#e63946' }}>
-              Locations
-            </h4>
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <MapPin className="w-5 h-5 shrink-0" style={{ color: '#e63946' }} />
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  <strong>Abu Dhabi:</strong> Mussafah Industrial Area, M-14, Building 45
-                </p>
-              </div>
-              <div className="flex gap-4">
-                <Phone className="w-5 h-5 shrink-0" style={{ color: '#e63946' }} />
-                <p className="text-sm font-bold text-slate-900">+971 2 XXX XXXX</p>
-              </div>
-              <div className="flex gap-4">
-                <Mail className="w-5 h-5 shrink-0" style={{ color: '#e63946' }} />
-                <p className="text-sm font-bold text-slate-900">support@nexprint.ae</p>
-              </div>
+            <div className="flex gap-3">
+              {[Linkedin, Instagram, Facebook].map((Icon, i) => (
+                <a key={i} href="#" className="w-10 h-10 border border-slate-800 flex items-center justify-center hover:bg-[#e63946] hover:border-[#e63946] transition-all group">
+                  <Icon size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+              ))}
             </div>
+          </div>
+
+          {/* Column 2: SEO-Optimized Solutions */}
+          <div>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#e63946] mb-8">Solutions</h3>
+            <ul className="space-y-4">
+              {footerLinks.solutions.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className="text-slate-400 hover:text-white text-[11px] font-bold uppercase tracking-widest flex items-center gap-2 group transition-colors">
+                    <ArrowRight size={12} className="text-[#e63946] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Corporate Navigation */}
+          <div>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#e63946] mb-8">Navigation</h3>
+            <ul className="space-y-4">
+              {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className="text-slate-400 hover:text-white text-[11px] font-bold uppercase tracking-widest transition-colors">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Local Abu Dhabi Contact */}
+          <div>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#e63946] mb-8">Connect</h3>
+            <ul className="space-y-6">
+              <li className="flex items-start gap-4">
+                <Phone size={18} className="text-[#e63946] shrink-0" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300">+971 2 XXX XXXX</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <Mail size={18} className="text-[#e63946] shrink-0" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300">sales@nexprint.ae</span>
+              </li>
+              <li className="flex items-start gap-4">
+                <MapPin size={18} className="text-[#e63946] shrink-0" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300 leading-relaxed">
+                  Mussafah Industrial Area,<br />Abu Dhabi, UAE
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            © {currentYear} Nexprint Solutions UAE. All Rights Reserved.
-          </p>
-          <div className="flex gap-8 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            <span className="hover:text-[#e63946] cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-[#e63946] cursor-pointer transition-colors">Terms of Service</span>
+        {/* Bottom Bar: SEO Keywords & Legal */}
+        <div className="pt-8 border-t border-slate-900 flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-4">
+             <div className="flex items-center gap-2 px-3 py-1 bg-slate-900 border border-slate-800">
+               <Globe size={12} className="text-[#e63946]" />
+               <span className="text-[9px] font-black uppercase tracking-[0.2em]">UAE Wide Support</span>
+             </div>
+             <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-600 text-center">
+              © {currentYear} NEXPRINT SOLUTIONS. ALL RIGHTS RESERVED.
+            </p>
+          </div>
+          
+          <div className="hidden lg:flex gap-6">
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-700 italic">Precision</span>
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-700 italic">Reliability</span>
+            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-700 italic">Speed</span>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
