@@ -4,13 +4,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-import Header from "./components/header"
-
-const Footer = dynamic(() => import("./components/footer/page"), {
-  ssr: true,
-  loading: () => null,
-});
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,15 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header />
-        {children}
-        <Footer/>
-                <Toaster position="top-right" />
-
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

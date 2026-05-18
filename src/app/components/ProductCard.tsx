@@ -33,7 +33,7 @@ export default function ProductCard({ product }: Props) {
       <div className="p-4 flex flex-col flex-1">
 
         {/* PRODUCT NAME */}
-        <Link href={`/products/${product.slug}`}>
+        <Link href={`/product/${product.slug}`}>
           <h3 className="font-semibold text-slate-900 text-sm lg:text-base line-clamp-2 hover:text-[#e63946] transition-colors min-h-[44px]">
             {product.name}
           </h3>

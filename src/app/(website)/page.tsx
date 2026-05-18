@@ -1,39 +1,22 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const Hero = dynamic(() => import("./components/hero/page"), {
-  ssr: true,
-  loading: () => null,
-});
-
-const Services = dynamic(() => import("./components/ServicesSection"), {
-  ssr: true,
-  loading: () => null,
-});
+import Hero from "../components/hero/page";
+import AboutSection from "../components/AboutUsSection";
+import Services from "../components/ServicesSection";
 
 // const AboutUs = dynamic(() => import("./components/AboutUs"), {
 //   ssr: true,
 //   loading: () => null,
 // });
 
-const HomeProductsSection = dynamic(
-  () => import("./components/HomeProductsSection"),
-  {
-    ssr: true,
-    loading: () => null,
-  }
-);
+import HomeProductsSection from "../components/HomeProductsSection";
 
-const WhyChooseUs = dynamic(() => import("./components/WhyChooseUs"), {
-  ssr: true,
-  loading: () => null,
-});
+import WhyChooseUs from "../components/WhyChooseUs";
 
-const BrandsSupport = dynamic(() => import("./components/BrandsSupport"), {
-  ssr: true,
-  loading: () => null,
-});
+import BrandsSupport from "../components/BrandsSupport";
 
+import PrinterProducts from "../components/PrinterProducts";
 // const AMCPlans = dynamic(() => import("./components/AMCPlans"), {
 //   ssr: true,
 //   loading: () => null,
@@ -44,11 +27,7 @@ const BrandsSupport = dynamic(() => import("./components/BrandsSupport"), {
 //   loading: () => null,
 // });
 
-const ContactSection = dynamic(() => import("./components/ContactSection"), {
-  ssr: true,
-  loading: () => null,
-});
-
+import ContactSection from "../components/ContactSection";
 // const Service = dynamic(() => import("./components/service/page"), {
 //   ssr: true,
 //   loading: () => null,
@@ -81,13 +60,15 @@ export default function Home() {
     >
       <Hero />
       <BrandsSupport />
+      <AboutSection />
       <Services />
+
       {/* <AMCPlans/> */}
-       <HomeProductsSection/>
+      <PrinterProducts />
       {/* <AboutUs/>
       <ProductShowcase /> */}
       <WhyChooseUs />
-      <ContactSection/>
+      <ContactSection />
       {/* <ProcessSection />
       <LeadCaptureForm /> */}
       {/* <AboutUs />
