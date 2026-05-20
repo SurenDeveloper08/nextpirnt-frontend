@@ -1,13 +1,20 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Clock3,
+} from "lucide-react";
 
 export const metadata = {
   title: "Contact Us | NexPrint UAE",
-  description: "Get in touch for printer AMC, rental, repair, and consumables in UAE.",
+  description:
+    "Get in touch for printer AMC, rental, repair, and consumables in UAE.",
 };
 
 export default function ContactPage() {
   return (
-    <main className="bg-white">
+    <main className="bg-white overflow-hidden">
 
       {/* HERO */}
       <section className="py-20 bg-[#f8f9fa] text-center">
@@ -77,76 +84,180 @@ export default function ContactPage() {
 
             </div>
 
-            {/* RIGHT FORM */}
-            <div className="lg:w-2/3 bg-[#f8f9fa] p-8 md:p-12 border border-slate-100">
+            <div className="lg:col-span-3">
 
-              <form
-                action="/api/contact"
-                method="POST"
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
-              >
+              <div className="bg-white border border-slate-200 rounded-[32px] p-6 md:p-10 shadow-sm">
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase">Full Name</label>
-                  <input
-                    name="name"
-                    required
-                    placeholder="John Doe"
-                    className="w-full p-4 border border-slate-200 focus:border-[#e63946] outline-none"
-                  />
+                <div className="mb-8">
+
+                  <span className="inline-flex px-4 py-1.5 rounded-full bg-red-50 text-[#e63946] text-sm font-semibold mb-4">
+                    Send Message
+                  </span>
+
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-900">
+                    Request a Quote
+                  </h2>
+
+                  <p className="text-slate-500 mt-3 leading-relaxed">
+                    Fill out the form and our team will contact you shortly.
+                  </p>
+
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="john@company.com"
-                    className="w-full p-4 border border-slate-200 focus:border-[#e63946] outline-none"
-                  />
-                </div>
+                <form
+                  action="/api/contact"
+                  method="POST"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                >
 
-                <div className="space-y-2 md:col-span-2">
-                  <label className="text-xs font-bold uppercase">Phone</label>
-                  <input
-                    name="phone"
-                    placeholder="+971..."
-                    className="w-full p-4 border border-slate-200 focus:border-[#e63946] outline-none"
-                  />
-                </div>
+                  {/* NAME */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700">
+                      Full Name
+                    </label>
 
-                <div className="space-y-2 md:col-span-2">
-                  <label className="text-xs font-bold uppercase">Service</label>
-                  <select
-                    name="service"
-                    className="w-full p-4 border border-slate-200 focus:border-[#e63946] outline-none"
-                  >
-                    <option>Printer AMC</option>
-                    <option>Printer Rental</option>
-                    <option>Repair Service</option>
-                    <option>Consumables</option>
-                  </select>
-                </div>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="John Doe"
+                      className="
+                        w-full h-14 px-5
+                        rounded-2xl
+                        border border-slate-200
+                        bg-slate-50
+                        focus:bg-white
+                        focus:border-[#e63946]
+                        outline-none
+                        transition-all
+                      "
+                    />
+                  </div>
 
-                <div className="space-y-2 md:col-span-2">
-                  <label className="text-xs font-bold uppercase">Message</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    placeholder="Tell us your requirement..."
-                    className="w-full p-4 border border-slate-200 focus:border-[#e63946] outline-none"
-                  />
-                </div>
+                  {/* EMAIL */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-slate-700">
+                      Email Address
+                    </label>
 
-                <div className="md:col-span-2">
-                  <button className="w-full bg-[#e63946] text-white font-bold py-4 flex items-center justify-center gap-2">
-                    Send Message <Send size={18} />
-                  </button>
-                </div>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="john@company.com"
+                      className="
+                        w-full h-14 px-5
+                        rounded-2xl
+                        border border-slate-200
+                        bg-slate-50
+                        focus:bg-white
+                        focus:border-[#e63946]
+                        outline-none
+                        transition-all
+                      "
+                    />
+                  </div>
 
-              </form>
+                  {/* PHONE */}
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-sm font-semibold text-slate-700">
+                      Phone Number
+                    </label>
+
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="+971..."
+                      className="
+                        w-full h-14 px-5
+                        rounded-2xl
+                        border border-slate-200
+                        bg-slate-50
+                        focus:bg-white
+                        focus:border-[#e63946]
+                        outline-none
+                        transition-all
+                      "
+                    />
+                  </div>
+
+                  {/* SERVICE */}
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-sm font-semibold text-slate-700">
+                      Service Required
+                    </label>
+
+                    <select
+                      name="service"
+                      className="
+                        w-full h-14 px-5
+                        rounded-2xl
+                        border border-slate-200
+                        bg-slate-50
+                        focus:bg-white
+                        focus:border-[#e63946]
+                        outline-none
+                        transition-all
+                      "
+                    >
+                      <option>Printer AMC</option>
+                      <option>Printer Rental</option>
+                      <option>Repair Service</option>
+                      <option>Consumables</option>
+                    </select>
+                  </div>
+
+                  {/* MESSAGE */}
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-sm font-semibold text-slate-700">
+                      Message
+                    </label>
+
+                    <textarea
+                      name="message"
+                      rows={5}
+                      required
+                      placeholder="Tell us your requirements..."
+                      className="
+                        w-full px-5 py-4
+                        rounded-2xl
+                        border border-slate-200
+                        bg-slate-50
+                        focus:bg-white
+                        focus:border-[#e63946]
+                        outline-none
+                        resize-none
+                        transition-all
+                      "
+                    />
+                  </div>
+
+                  {/* BUTTON */}
+                  <div className="md:col-span-2 pt-2">
+
+                    <button
+                      type="submit"
+                      className="
+                        w-full h-14
+                        rounded-2xl
+                        bg-[#e63946]
+                        hover:bg-slate-900
+                        text-white font-semibold
+                        flex items-center justify-center gap-2
+                        transition-all duration-300
+                        shadow-lg hover:shadow-xl
+                      "
+                    >
+                      Send Message
+                      <Send size={18} />
+                    </button>
+
+                  </div>
+
+                </form>
+
+              </div>
+
             </div>
 
           </div>
@@ -154,12 +265,18 @@ export default function ContactPage() {
       </section>
 
       {/* MAP */}
-      <section className="h-[400px]">
-        <iframe
-          src="https://maps.google.com/maps?q=Abu%20Dhabi&t=&z=13&ie=UTF8&iwloc=&output=embed"
-          className="w-full h-full border-0"
-          loading="lazy"
-        ></iframe>
+      <section className="px-4 lg:px-6 pb-16 lg:pb-24">
+
+        <div className="max-w-7xl mx-auto rounded-[32px] overflow-hidden border border-slate-200 shadow-sm">
+
+          <iframe
+            src="https://maps.google.com/maps?q=Abu%20Dhabi&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            className="w-full h-[320px] md:h-[450px] border-0"
+            loading="lazy"
+          ></iframe>
+
+        </div>
+
       </section>
 
     </main>

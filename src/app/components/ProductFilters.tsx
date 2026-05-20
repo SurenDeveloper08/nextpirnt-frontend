@@ -57,11 +57,10 @@ export default function ProductFilters({
             <button
               key={brand}
               onClick={() => setBrand(brand)}
-              className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${
-                selectedBrand === brand
+              className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${selectedBrand === brand
                   ? "bg-[#e63946] text-white border-[#e63946]"
                   : "border-slate-200 hover:border-[#e63946]"
-              }`}
+                }`}
             >
               {brand}
             </button>
@@ -80,11 +79,10 @@ export default function ProductFilters({
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${
-                selectedCategory === cat
+              className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${selectedCategory === cat
                   ? "bg-slate-900 text-white border-slate-900"
                   : "border-slate-200 hover:border-slate-900"
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -103,11 +101,10 @@ export default function ProductFilters({
             <button
               key={color}
               onClick={() => setColor(color)}
-              className={`px-4 py-2 rounded-full border text-sm transition-all ${
-                selectedColor === color
+              className={`px-4 py-2 rounded-full border text-sm transition-all ${selectedColor === color
                   ? "bg-[#e63946] text-white border-[#e63946]"
                   : "border-slate-200 hover:border-[#e63946]"
-              }`}
+                }`}
             >
               {color}
             </button>

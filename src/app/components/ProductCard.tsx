@@ -5,54 +5,140 @@ import { ShoppingCart } from "lucide-react";
 import { Product } from "@/types/product";
 import { addToCart } from "@/lib/cart";
 
-interface Props {
+interface ProductCardProps {
   product: Product;
 }
 
-export default function ProductCard({ product }: Props) {
+export default function ProductCard({
+  product,
+}: ProductCardProps) {
   return (
-    <div className="group bg-white border border-slate-200 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+    <div
+      className="
+        group bg-white rounded-[20px]
+        border border-slate-200
+        overflow-hidden
+        shadow-sm
+      "
+    >
 
       {/* IMAGE */}
-      <div className="relative bg-slate-100 aspect-square overflow-hidden">
+      <div
+        className="
+          relative bg-slate-50
+          h-[190px]
+          sm:h-[220px]
+          md:h-[240px]
+          flex items-center justify-center
+          overflow-hidden
+          p-4 sm:p-6
+        "
+      >
 
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-300"
-        />
+        <Link
+          href={`/products/${product.id}`}
+          className="w-full h-full flex items-center justify-center"
+        >
+          <img
+            src={product.image}
+            alt={product.name}
+            className="
+              w-full h-full
+              max-w-[180px]
+              sm:max-w-[210px]
+              max-h-[180px]
+              sm:max-h-[210px]
+              object-contain
+              object-center
+              mix-blend-multiply
+              group-hover:scale-105
+              transition-transform duration-500
+            "
+          />
+        </Link>
 
-        {/* BRAND */}
-        <span className="absolute top-4 left-4 bg-[#e63946] text-white text-xs font-semibold px-3 py-1 rounded-full">
-          {product.brand}
-        </span>
-
+        {/* Add To Cart */}
+        <div
+          className="
+    absolute bottom-3 left-1/2
+    -translate-x-1/2
+    opacity-100 translate-y-0
+    sm:translate-y-10 sm:opacity-0
+    sm:group-hover:translate-y-0
+    sm:group-hover:opacity-100
+    transition-all duration-300
+  "
+        >
+          <button
+            onClick={() => addToCart(product)}
+            className="
+              h-9 sm:h-10
+              px-4
+              rounded-full
+              bg-[#e63946]
+              text-white
+              text-xs sm:text-sm
+              font-medium
+              hover:bg-slate-900
+              transition-colors
+              flex items-center gap-2
+              whitespace-nowrap
+            "
+          >
+            <ShoppingCart size={15} />
+            Add To Cart
+          </button>
+        </div>
       </div>
 
       {/* CONTENT */}
-      <div className="p-4 flex flex-col flex-1">
+      <div className="p-4">
 
-        {/* PRODUCT NAME */}
-        <Link href={`/product/${product.slug}`}>
-          <h3 className="font-semibold text-slate-900 text-sm lg:text-base line-clamp-2 hover:text-[#e63946] transition-colors min-h-[44px]">
+        {/* CATEGORY */}
+        <p className="text-[11px] sm:text-xs text-slate-400 mb-1">
+          {product.category}
+        </p>
+
+        {/* TITLE */}
+        <Link href={`/products/${product.id}`}>
+          <h3
+            className="
+              text-[14px]
+              sm:text-[15px]
+              font-semibold
+              leading-[1.5]
+              text-slate-800
+              hover:text-[#e63946]
+              transition-colors
+              line-clamp-2
+              min-h-[44px]
+            "
+          >
             {product.name}
           </h3>
         </Link>
 
-        {/* PRICE (optional but good UX) */}
-        <p className="text-slate-900 font-bold mt-1">
-          AED {product.price}
-        </p>
+        {/* PRICE + VIEW */}
+        {/* <div className="mt-3 flex items-center justify-between gap-2">
 
-        {/* ADD TO CART */}
-        <button
-          onClick={() => addToCart(product)}
-          className="mt-5 h-11 rounded-xl bg-slate-900 text-white flex items-center justify-center gap-2 font-medium hover:bg-[#e63946] transition-colors"
-        >
-          <ShoppingCart size={18} />
-          Add to Cart
-        </button>
+          <span className="text-base sm:text-lg font-bold text-slate-900">
+            {product.price}
+          </span>
 
+          <Link
+            href={`/products/${product.id}`}
+            className="
+              text-xs sm:text-sm
+              font-medium
+              text-slate-500
+              hover:text-[#e63946]
+              transition-colors
+            "
+          >
+            View
+          </Link>
+
+        </div> */}
       </div>
     </div>
   );

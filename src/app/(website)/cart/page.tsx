@@ -51,7 +51,8 @@ export default function CartPage() {
     );
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-10">
+       <section className="bg-[#f8fafc] min-h-screen py-10 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 lg:px-6">
 
             {/* TITLE */}
             <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-8">
@@ -144,5 +145,6 @@ export default function CartPage() {
                 </div>
             )}
         </div>
+        </section>
     );
 }

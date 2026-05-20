@@ -46,7 +46,7 @@ export default function ProductListing({
         <h1 className="text-3xl font-bold text-slate-900">
           {title}
         </h1>
-<Breadcrumbs />
+        <Breadcrumbs />
         {/* MOBILE FILTER BUTTON */}
         <div className="xl:hidden mt-4 mb-4">
           <button
@@ -58,10 +58,27 @@ export default function ProductListing({
         </div>
 
         {/* MAIN LAYOUT */}
-        <div className="flex flex-col xl:flex-row gap-6 lg:gap-8 mt-6">
+        {/* MAIN LAYOUT */}
+        <div
+          className="
+    flex flex-col xl:flex-row
+    gap-6 lg:gap-8
+    mt-6
+    items-start
+  "
+        >
 
           {/* DESKTOP FILTER */}
-          <aside className="hidden xl:block w-[280px] shrink-0 sticky top-24 h-fit">
+          <aside
+            className="
+      hidden xl:block
+      w-[280px]
+      shrink-0
+      sticky
+      top-24
+      self-start
+    "
+          >
             <ProductFilters
               brands={brands}
               categories={types}
