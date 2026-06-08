@@ -1,145 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
-import { Product } from "@/types/product";
+import { ShoppingCart, ArrowRight } from "lucide-react";
+
 import { addToCart } from "@/lib/cart";
+import type { Product } from "@/types/product";
 
 interface ProductCardProps {
   product: Product;
 }
 
-export default function ProductCard({
-  product,
-}: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
+  const productUrl = `/product/${product.slug}`;
+
   return (
-    <div
-      className="
-        group bg-white rounded-[20px]
-        border border-slate-200
-        overflow-hidden
-        shadow-sm
-      "
-    >
+    <article className="group bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col h-full hover:shadow-xl hover:border-red-100 transition-all duration-300">
 
       {/* IMAGE */}
-      <div
-        className="
-          relative bg-slate-50
-          h-[190px]
-          sm:h-[220px]
-          md:h-[240px]
-          flex items-center justify-center
-          overflow-hidden
-          p-4 sm:p-6
-        "
-      >
+      <Link href={productUrl} className="block">
+        <div className="relative bg-slate-50 aspect-square p-3 sm:p-4 overflow-hidden">
 
-        <Link
-          href={`/products/${product.id}`}
-          className="w-full h-full flex items-center justify-center"
-        >
           <img
             src={product.image}
             alt={product.name}
-            className="
-              w-full h-full
-              max-w-[180px]
-              sm:max-w-[210px]
-              max-h-[180px]
-              sm:max-h-[210px]
-              object-contain
-              object-center
-              mix-blend-multiply
-              group-hover:scale-105
-              transition-transform duration-500
-            "
+            loading="lazy"
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
+        </div>
+      </Link>
+
+      {/* CONTENT */}
+      <div className="flex flex-col flex-1 p-3 sm:p-4">
+
+        <p className="text-[11px] text-slate-500 mb-1 truncate">
+          {product.brand}
+        </p>
+
+        <Link href={productUrl}>
+          <h2 className="text-[13px] sm:text-[14px] font-semibold text-slate-900 line-clamp-2 hover:text-[#e63946] transition-colors">
+            {product.name}
+          </h2>
         </Link>
 
-        {/* Add To Cart */}
-        <div
-          className="
-    absolute bottom-3 left-1/2
-    -translate-x-1/2
-    opacity-100 translate-y-0
-    sm:translate-y-10 sm:opacity-0
-    sm:group-hover:translate-y-0
-    sm:group-hover:opacity-100
-    transition-all duration-300
-  "
-        >
+        {/* PRICE */}
+        <div className="mt-3">
+          <span className="text-lg font-bold text-slate-900">
+            AED {product.price}
+          </span>
+        </div>
+
+        {/* ACTIONS */}
+        <div className="mt-auto pt-4 flex gap-2">
+
           <button
             onClick={() => addToCart(product)}
-            className="
-              h-9 sm:h-10
-              px-4
-              rounded-full
-              bg-[#e63946]
-              text-white
-              text-xs sm:text-sm
-              font-medium
-              hover:bg-slate-900
-              transition-colors
-              flex items-center gap-2
-              whitespace-nowrap
-            "
+            className="flex-1 h-11 rounded-xl bg-[#e63946] text-white text-sm font-semibold flex items-center justify-center gap-2 hover:bg-red-700 transition-colors"
           >
             <ShoppingCart size={15} />
             Add To Cart
           </button>
-        </div>
-      </div>
-
-      {/* CONTENT */}
-      <div className="p-4">
-
-        {/* CATEGORY */}
-        <p className="text-[11px] sm:text-xs text-slate-400 mb-1">
-          {product.category}
-        </p>
-
-        {/* TITLE */}
-        <Link href={`/products/${product.id}`}>
-          <h3
-            className="
-              text-[14px]
-              sm:text-[15px]
-              font-semibold
-              leading-[1.5]
-              text-slate-800
-              hover:text-[#e63946]
-              transition-colors
-              line-clamp-2
-              min-h-[44px]
-            "
-          >
-            {product.name}
-          </h3>
-        </Link>
-
-        {/* PRICE + VIEW */}
-        {/* <div className="mt-3 flex items-center justify-between gap-2">
-
-          <span className="text-base sm:text-lg font-bold text-slate-900">
-            {product.price}
-          </span>
 
           <Link
-            href={`/products/${product.id}`}
-            className="
-              text-xs sm:text-sm
-              font-medium
-              text-slate-500
-              hover:text-[#e63946]
-              transition-colors
-            "
+            href={productUrl}
+            className="h-11 w-11 rounded-xl border border-slate-200 flex items-center justify-center hover:border-[#e63946] hover:text-[#e63946] transition-all"
           >
-            View
+            <ArrowRight size={16} />
           </Link>
 
-        </div> */}
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

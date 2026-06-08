@@ -26,14 +26,24 @@ export const sidebarMenu = [
     icon: FolderTree,
   },
   {
+    title: "Sub Categories",
+    href: "/admin/subcategories",
+    icon: FolderTree,
+  },
+   {
+    title: "Brands",
+    href: "/admin/brands",
+    icon: FolderTree,
+  },
+  {
     title: "Services",
     href: "/admin/services",
     icon: Wrench,
   },
   {
-    title: "Pages CMS",
-    href: "/admin/pages",
-    icon: FileText,
+    title: "Hero",
+    href: "/admin/hero",
+    icon: Wrench,
   },
   {
     title: "Orders",
@@ -41,8 +51,8 @@ export const sidebarMenu = [
     icon: ShoppingCart,
   },
   {
-    title: "Customers",
-    href: "/admin/customers",
+    title: "Contact Customers",
+    href: "/admin/contact",
     icon: Users,
   },
   {

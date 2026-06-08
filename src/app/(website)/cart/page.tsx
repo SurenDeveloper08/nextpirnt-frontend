@@ -2,149 +2,350 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import {
+    ShoppingCart,
+    Trash2,
+    Plus,
+    Minus,
+} from "lucide-react";
+
 export default function CartPage() {
     const [cart, setCart] = useState<any[]>([]);
 
-    // Load cart
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem("cart") || "[]");
-        setCart(data);
+        const storedCart = JSON.parse(
+            localStorage.getItem("cart") || "[]"
+        );
+        setCart(storedCart);
     }, []);
 
-    // Save helper
-    const saveCart = (updated: any[]) => {
-        setCart(updated);
-        localStorage.setItem("cart", JSON.stringify(updated));
+    const saveCart = (updatedCart: any[]) => {
+        setCart(updatedCart);
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(updatedCart)
+        );
+
+        window.dispatchEvent(
+            new Event("cartUpdated")
+        );
     };
 
-    // Increase qty
     const increaseQty = (slug: string) => {
         const updated = cart.map((item) =>
-            item.slug === slug ? { ...item, qty: item.qty + 1 } : item
+            item.slug === slug
+                ? {
+                    ...item,
+                    qty: item.qty + 1,
+                }
+                : item
         );
+
         saveCart(updated);
     };
 
-    // Decrease qty
     const decreaseQty = (slug: string) => {
-        const updated = cart
-            .map((item) =>
-                item.slug === slug
-                    ? { ...item, qty: Math.max(1, item.qty - 1) }
-                    : item
-            )
-            .filter((item) => item.qty > 0);
+        const updated = cart.map((item) =>
+            item.slug === slug
+                ? {
+                    ...item,
+                    qty: Math.max(
+                        1,
+                        item.qty - 1
+                    ),
+                }
+                : item
+        );
 
         saveCart(updated);
     };
 
-    // Remove item
     const removeItem = (slug: string) => {
-        const updated = cart.filter((item) => item.slug !== slug);
+        const updated = cart.filter(
+            (item) => item.slug !== slug
+        );
+
         saveCart(updated);
     };
 
-    // Total
     const total = cart.reduce(
-        (sum, item) => sum + item.price * item.qty,
+        (sum, item) =>
+            sum +
+            ((item.price || 0) *
+                item.qty),
         0
     );
 
+    const hasPriceItems = cart.some(
+        (item) => typeof item.price === "number"
+    );
+
     return (
-       <section className="bg-[#f8fafc] min-h-screen py-10 lg:py-16">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <section className="bg-slate-50 min-h-screen py-10 md:py-14">
+            <div className="max-w-7xl mx-auto px-4">
 
-            {/* TITLE */}
-            <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-8">
-                Shopping Cart
-            </h1>
+                {/* TITLE */}
 
-            {/* EMPTY STATE */}
-            {cart.length === 0 ? (
-                <div className="text-center py-20 text-slate-500">
-                    Your cart is empty
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-slate-900">
+                        Shopping Cart
+                    </h1>
+
+                    <p className="text-slate-500 mt-2">
+                        Review your selected products
+                    </p>
                 </div>
-            ) : (
-                <div className="space-y-6">
 
-                    {cart.map((item) => (
-                        <div
-                            key={item.slug}
-                            className="flex flex-col md:flex-row md:items-center justify-between gap-5 border border-slate-100 rounded-xl p-4 md:p-6 bg-white"
-                        >
+                {/* EMPTY CART */}
 
-                            {/* PRODUCT */}
-                            <div className="flex items-center gap-4">
-                                <img
-                                    src={item.image}
-                                    className="w-20 h-20 object-cover rounded-lg bg-slate-50"
-                                />
+                {cart.length === 0 ? (
+                    <div className="bg-white rounded-3xl p-12 text-center border border-slate-200">
 
-                                <div>
-                                    <h2 className="font-medium text-slate-900">
-                                        {item.name}
-                                    </h2>
+                        <ShoppingCart
+                            size={60}
+                            className="mx-auto text-slate-300"
+                        />
 
-                                    <p className="text-slate-500 text-sm mt-1">
-                                        ${item.price}
-                                    </p>
-                                </div>
-                            </div>
+                        <h2 className="text-xl font-semibold mt-5">
+                            Your cart is empty
+                        </h2>
 
-                            {/* QTY */}
-                            <div className="flex items-center gap-3 border border-slate-200 rounded-full px-3 py-1 w-fit">
-
-                                <button
-                                    onClick={() => decreaseQty(item.slug)}
-                                    className="text-slate-600 px-2"
-                                >
-                                    −
-                                </button>
-
-                                <span className="w-6 text-center text-slate-800">
-                                    {item.qty}
-                                </span>
-
-                                <button
-                                    onClick={() => increaseQty(item.slug)}
-                                    className="text-slate-600 px-2"
-                                >
-                                    +
-                                </button>
-                            </div>
-
-                            {/* PRICE */}
-                            <div className="font-medium text-slate-900">
-                                ${item.price * item.qty}
-                            </div>
-
-                            {/* REMOVE */}
-                            <button
-                                onClick={() => removeItem(item.slug)}
-                                className="text-sm text-slate-400 hover:text-slate-700 transition"
-                            >
-                                Remove
-                            </button>
-                        </div>
-                    ))}
-
-                    {/* SUMMARY */}
-                    <div className="border-t border-slate-200 pt-6 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-
-                        <div className="text-slate-700 text-lg font-medium">
-                            Total: ${total}
-                        </div>
+                        <p className="text-slate-500 mt-2">
+                            Browse products and add
+                            them to your cart.
+                        </p>
 
                         <Link
-                            href="/checkout"
-                            className="w-full md:w-auto px-6 py-3 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition text-center"
+                            href="/products"
+                            className="inline-flex mt-6 px-6 py-3 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700"
                         >
-                            Checkout
+                            Continue Shopping
                         </Link>
                     </div>
-                </div>
-            )}
-        </div>
+                ) : (
+                    <div className="grid lg:grid-cols-[1fr_350px] gap-8">
+
+                        {/* CART ITEMS */}
+
+                        <div className="space-y-4">
+
+                            {cart.map((item) => (
+                                <div
+                                    key={item.slug}
+                                    className="bg-white border border-slate-200 rounded-2xl p-4 md:p-5"
+                                >
+                                    <div className="flex flex-col md:flex-row gap-5">
+
+                                        {/* IMAGE */}
+
+                                        <div className="shrink-0">
+                                            <img
+                                                src={item.image}
+                                                alt={item.name}
+                                                className="w-24 h-24 md:w-28 md:h-28 rounded-xl object-cover bg-slate-100"
+                                            />
+                                        </div>
+
+                                        {/* CONTENT */}
+
+                                        <div className="flex-1 min-w-0">
+
+                                            <h3 className="font-semibold text-slate-900 text-base md:text-lg leading-6">
+                                                {item.name}
+                                            </h3>
+
+                                            {item.price > 0 ? (
+                                                <p className="mt-2 text-red-600 font-semibold">
+                                                    AED{" "}
+                                                    {item.price.toLocaleString()}
+                                                </p>
+                                            ) : (
+                                                <p className="mt-2 text-orange-600 font-medium">
+                                                    Enquiry Product
+                                                </p>
+                                            )}
+
+                                            {/* MOBILE CONTROLS */}
+
+                                            <div className="flex items-center justify-between mt-4 md:hidden">
+
+                                                <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden">
+
+                                                    <button
+                                                        onClick={() =>
+                                                            decreaseQty(
+                                                                item.slug
+                                                            )
+                                                        }
+                                                        className="w-10 h-10 flex items-center justify-center hover:bg-slate-100"
+                                                    >
+                                                        <Minus size={16} />
+                                                    </button>
+
+                                                    <span className="w-10 text-center font-medium">
+                                                        {item.qty}
+                                                    </span>
+
+                                                    <button
+                                                        onClick={() =>
+                                                            increaseQty(
+                                                                item.slug
+                                                            )
+                                                        }
+                                                        className="w-10 h-10 flex items-center justify-center hover:bg-slate-100"
+                                                    >
+                                                        <Plus size={16} />
+                                                    </button>
+
+                                                </div>
+
+                                                <button
+                                                    onClick={() =>
+                                                        removeItem(
+                                                            item.slug
+                                                        )
+                                                    }
+                                                    className="text-red-600"
+                                                >
+                                                    <Trash2 size={18} />
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                        {/* DESKTOP ACTIONS */}
+
+                                        <div className="hidden md:flex flex-col items-end justify-between">
+
+                                            <button
+                                                onClick={() =>
+                                                    removeItem(
+                                                        item.slug
+                                                    )
+                                                }
+                                                className="text-red-600 hover:text-red-700"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
+
+                                            <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden">
+
+                                                <button
+                                                    onClick={() =>
+                                                        decreaseQty(
+                                                            item.slug
+                                                        )
+                                                    }
+                                                    className="w-10 h-10 flex items-center justify-center hover:bg-slate-100"
+                                                >
+                                                    <Minus size={16} />
+                                                </button>
+
+                                                <span className="w-12 text-center font-medium">
+                                                    {item.qty}
+                                                </span>
+
+                                                <button
+                                                    onClick={() =>
+                                                        increaseQty(
+                                                            item.slug
+                                                        )
+                                                    }
+                                                    className="w-10 h-10 flex items-center justify-center hover:bg-slate-100"
+                                                >
+                                                    <Plus size={16} />
+                                                </button>
+
+                                            </div>
+
+                                            {item.price > 0 && (
+                                                <div className="font-bold text-slate-900">
+                                                    AED{" "}
+                                                    {(
+                                                        item.price *
+                                                        item.qty
+                                                    ).toLocaleString()}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            ))}
+
+                        </div>
+
+                        {/* ORDER SUMMARY */}
+
+                        <div>
+
+                            <div className="bg-white border border-slate-200 rounded-2xl p-6 sticky top-24">
+
+                                <h2 className="text-xl font-bold mb-6">
+                                    Order Summary
+                                </h2>
+
+                                <div className="flex justify-between mb-4">
+                                    <span>
+                                        Items
+                                    </span>
+
+                                    <span>
+                                        {cart.length}
+                                    </span>
+                                </div>
+
+                                <div className="border-t border-slate-200 pt-4">
+
+                                    {hasPriceItems ? (
+                                        <>
+                                            <div className="flex justify-between text-lg font-bold">
+
+                                                <span>
+                                                    Total
+                                                </span>
+
+                                                <span>
+                                                    AED{" "}
+                                                    {total.toLocaleString()}
+                                                </span>
+
+                                            </div>
+
+                                            <Link
+                                                href="/checkout"
+                                                className="mt-6 w-full h-12 rounded-xl bg-red-600 hover:bg-red-700 text-white flex items-center justify-center font-semibold transition"
+                                            >
+                                                Proceed to Checkout
+                                            </Link>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p className="text-slate-500 text-sm">
+                                                Contact us for
+                                                pricing and
+                                                availability.
+                                            </p>
+
+                                            <Link
+                                                href="/contact"
+                                                className="mt-6 w-full h-12 rounded-xl bg-red-600 hover:bg-red-700 text-white flex items-center justify-center font-semibold transition"
+                                            >
+                                                Request Quote
+                                            </Link>
+                                        </>
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                )}
+
+            </div>
         </section>
     );
 }

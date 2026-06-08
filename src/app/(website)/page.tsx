@@ -1,6 +1,3 @@
-import Image from "next/image";
-import dynamic from "next/dynamic";
-
 import Hero from "../components/hero/page";
 import AboutSection from "../components/AboutUsSection";
 import Services from "../components/ServicesSection";
@@ -10,13 +7,11 @@ import Services from "../components/ServicesSection";
 //   loading: () => null,
 // });
 
-import HomeProductsSection from "../components/HomeProductsSection";
-
 import WhyChooseUs from "../components/WhyChooseUs";
 
 import BrandsSupport from "../components/BrandsSupport";
 
-import PrinterProducts from "../components/PrinterProducts";
+import FeaturedProducts from "../components/FeaturedProducts";
 // const AMCPlans = dynamic(() => import("./components/AMCPlans"), {
 //   ssr: true,
 //   loading: () => null,
@@ -52,8 +47,26 @@ import ContactSection from "../components/ContactSection";
 //   ssr: true,
 //   loading: () => null,
 // });
+async function getFeaturedProducts() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/featured/products`,
+    {
+      cache: "no-store",
+    }
+  );
 
-export default function Home() {
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
+  const data = await res.json();
+
+  return data.data;
+}
+
+
+export default async function HomePage() {
+  const products = await getFeaturedProducts();
   return (
     <main
     // className="flex min-h-screen items-center justify-center bg-white"
@@ -64,11 +77,10 @@ export default function Home() {
       <Services />
 
       {/* <AMCPlans/> */}
-      <PrinterProducts />
+      <FeaturedProducts products={products} />
       {/* <AboutUs/>
       <ProductShowcase /> */}
       <WhyChooseUs />
-      <ContactSection />
       {/* <ProcessSection />
       <LeadCaptureForm /> */}
       {/* <AboutUs />

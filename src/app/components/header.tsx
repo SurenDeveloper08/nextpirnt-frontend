@@ -14,195 +14,37 @@ import {
     Facebook,
     Instagram,
     Linkedin,
+    Youtube
 } from "lucide-react";
 
-const servicesMenu = [
-    // { name: "Printer Sales", href: "/services/printer-sales" },
-    { name: "Printer Rental", href: "/services/printer-rental" },
-    { name: "AMC Maintenance", href: "/services/amc-maintenance" },
-    { name: "Printer Repair", href: "/services/printer-repair" },
-    // { name: "Consumables", href: "/services/consumables" },
-    // { name: "Office Stationery", href: "/services/stationery" },
-];
+import {
+    FaPinterestP,
+} from "react-icons/fa6";
+import SearchModal from "./SearchModal";
 
-const printersMenu = [
-    { name: "All Printers", href: "/printers" },
-    { name: "Multifunction Printers", href: "/printers/mfp" },
-    { name: "Laser Printers", href: "/printers/laser" },
-    { name: "Ink Tank Printers", href: "/printers/ink-tank" },
-    { name: "Color Printers", href: "/printers/color" },
-    { name: "Scanners", href: "/printers/scanners" },
-    { name: "Photocopiers", href: "/printers/photocopiers" },
-];
+interface SubmenuItem {
+    name: string;
+    href: string;
+}
 
-const consumablesMenu = [
-    { name: "Toners", href: "/consumables/toners" },
-    { name: "Inks", href: "/consumables/inks" },
-    { name: "Drums", href: "/consumables/drums" },
-    { name: "Fusers", href: "/consumables/fusers" },
-    { name: "Transfer Belts", href: "/consumables/transfer-belts" },
-    { name: "Waste Toner Boxes", href: "/consumables/waste-boxes" },
-];
+interface NavItem {
+    name: string;
+    href: string;
+    submenu?: SubmenuItem[];
+}
 
-const navLinks = [
-    {
-        name: "Home",
-        href: "/",
-    },
+interface HeaderProps {
+    navLinks: NavItem[];
+}
 
-    {
-        name: "Printers",
-        href: "/products/printers",
-        submenu: [
-            {
-                name: "All Printers",
-                href: "/products/printers",
-            },
-            {
-                name: "Multifunction Printers",
-                href: "/products/printers",
-            },
-            {
-                name: "Laser Printers",
-                href: "/products/printers",
-            },
-            {
-                name: "Ink Tank Printers",
-                href: "/products/printers",
-            },
-            {
-                name: "Color Printers",
-                href: "/products/printers",
-            },
-            {
-                name: "Scanners",
-                href: "/products/printers",
-            },
-            {
-                name: "Photocopiers",
-                href: "/products/printers",
-            },
-        ],
-    },
+export default function Header({ navLinks }: HeaderProps) {
 
-    {
-        name: "Consumables",
-        href: "/products/consumables",
-        submenu: [
-            {
-                name: "Toners",
-                href: "/products/consumables",
-            },
-            {
-                name: "Inks",
-                href: "/products/consumables",
-            },
-            {
-                name: "Drums",
-                href: "/products/consumables",
-            },
-            {
-                name: "Fusers",
-                href: "/products/consumables",
-            },
-            {
-                name: "Transfer Belts",
-                href: "/products/consumables",
-            },
-            {
-                name: "Waste Toner Boxes",
-                href: "/products/consumables",
-            },
-        ],
-    },
-
-    {
-        name: "Office Equipment",
-        href: "/products/office-equipment",
-        submenu: [
-            {
-                name: "Projectors",
-                href: "/products/office-equipment",
-            },
-            {
-                name: "Shredders",
-                href: "/products/office-equipment",
-            },
-            {
-                name: "Laminators",
-                href: "/products/office-equipment",
-            },
-            {
-                name: "Binding Machines",
-                href: "/products/office-equipment",
-            },
-            {
-                name: "Attendance Machines",
-                href: "/products/office-equipment",
-            },
-            {
-                name: "POS Systems",
-                href: "/products/office-equipment",
-            },
-            {
-                name: "Paper Cutters",
-                href: "/products/office-equipment",
-            },
-        ],
-    },
-
-    {
-        name: "Services",
-        href: "/services",
-        submenu: [
-            {
-                name: "Printer Rental",
-                href: "/services/printer-rental",
-            },
-            {
-                name: "AMC Maintenance",
-                href: "/services/amc-maintenance",
-            },
-            {
-                name: "Printer Repair",
-                href: "/services/printer-repair",
-            },
-        ],
-    },
-
-    {
-        name: "About Us",
-        href: "/about",
-    },
-
-    {
-        name: "Contact",
-        href: "/contact",
-    },
-];
-
-const Header = () => {
     const count = useCartCount();
     const [mobileMenu, setMobileMenu] = useState(false);
-   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+    const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
 
     // SEARCH
     const [searchOpen, setSearchOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
-
-    const allSearchItems = [
-        ...servicesMenu,
-        ...printersMenu,
-        ...consumablesMenu,
-        { name: "Rental Printers", href: "/rental-printers" },
-        { name: "About Us", href: "/about" },
-        { name: "Blog", href: "/blog" },
-        { name: "Contact", href: "/contact" },
-    ];
-
-    const filteredResults = allSearchItems.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     return (
         <header className="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -214,35 +56,83 @@ const Header = () => {
                     {/* LEFT */}
                     <div className="flex items-center gap-6 text-sm">
                         <a
-                            href="tel:+971501234567"
+                            href="tel:+971527761348"
                             className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
                         >
                             <Phone size={15} />
-                            +971 50 123 4567
+                            +971 52 776 1348
                         </a>
 
                         <a
-                            href="mailto:info@company.com"
+                            href="mailto:nexprintuae@gmail.com"
                             className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
                         >
                             <Mail size={15} />
-                            info@company.com
+                            nexprintuae@gmail.com
                         </a>
                     </div>
 
                     {/* RIGHT */}
                     <div className="flex items-center gap-4">
-                        <a href="#" className="hover:text-[#e63946] transition-colors">
+
+                        <a
+                            href="https://facebook.com/nexprintuae"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#e63946] transition-colors"
+                            aria-label="Facebook"
+                        >
                             <Facebook size={17} />
                         </a>
 
-                        <a href="#" className="hover:text-[#e63946] transition-colors">
+                        <a
+                            href="https://www.instagram.com/nexprintuae/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#e63946] transition-colors"
+                            aria-label="Instagram"
+                        >
                             <Instagram size={17} />
                         </a>
 
-                        <a href="#" className="hover:text-[#e63946] transition-colors">
-                            <Linkedin size={17} />
+                        <a
+                            href="https://x.com/nexprintuae"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#e63946] transition-colors"
+                            aria-label="X"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="17"
+                                height="17"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M18.901 1H22L15.24 8.73L23.2 23H16.97L12.09 15.1L5.18 23H2.08L9.31 14.73L1.68 1H8.07L12.48 8.22L18.901 1Z" />
+                            </svg>
                         </a>
+
+                        <a
+                            href="https://www.youtube.com/@nexprintuae"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#e63946] transition-colors"
+                            aria-label="YouTube"
+                        >
+                            <Youtube size={17} />
+                        </a>
+
+                        <a
+                            href="https://www.pinterest.com/nexprintuae/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[#e63946] transition-colors"
+                            aria-label="Pinterest"
+                        >
+                            <FaPinterestP size={17} />
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -263,40 +153,51 @@ const Header = () => {
                     {/* DESKTOP NAV */}
                     <nav className="hidden lg:flex items-center gap-8">
 
-                        {navLinks.map((item, index) => (
-                            <div key={index} className="relative group">
-                                {item.submenu ? (
-                                    <>
+                        {navLinks?.map((item, index) => {
+                            const hasSubmenu = (item.submenu?.length ?? 0) > 0;
+
+                            return (
+                                <div key={index} className="relative group">
+
+                                    {hasSubmenu ? (
+                                        <>
+                                            {/* MAIN LINK */}
+                                            <Link
+                                                href={item.href}
+                                                className="flex items-center gap-1 text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors"
+                                            >
+                                                {item.name}
+                                                <ChevronDown size={16} />
+                                            </Link>
+
+                                            {/* DROPDOWN */}
+                                            <div className="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-3 group-hover:translate-y-0 transition-all duration-300 bg-white shadow-2xl border border-slate-100 min-w-[280px] py-3 rounded-2xl">
+
+                                                {item.submenu?.map((sub, subIndex) => (
+                                                    <Link
+                                                        key={subIndex}
+                                                        href={sub.href}
+                                                        className="block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-[#e63946] transition-colors"
+                                                    >
+                                                        {sub.name}
+                                                    </Link>
+                                                ))}
+
+                                            </div>
+                                        </>
+                                    ) : (
+                                        /* SIMPLE LINK */
                                         <Link
                                             href={item.href}
-                                            className="flex items-center gap-1 text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors"
+                                            className="text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors"
                                         >
                                             {item.name}
-                                            <ChevronDown size={16} />
                                         </Link>
+                                    )}
 
-                                        <div className="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-3 group-hover:translate-y-0 transition-all duration-300 bg-white shadow-2xl border border-slate-100 min-w-[280px] py-3 rounded-2xl">
-                                            {item.submenu.map((sub, subIndex) => (
-                                                <Link
-                                                    key={subIndex}
-                                                    href={sub.href}
-                                                    className="block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-[#e63946] transition-colors"
-                                                >
-                                                    {sub.name}
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </>
-                                ) : (
-                                    <Link
-                                        href={item.href}
-                                        className="text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors"
-                                    >
-                                        {item.name}
-                                    </Link>
-                                )}
-                            </div>
-                        ))}
+                                </div>
+                            );
+                        })}
                     </nav>
 
                     {/* RIGHT SIDE */}
@@ -305,7 +206,7 @@ const Header = () => {
                         {/* SEARCH BUTTON */}
                         <button
                             onClick={() => setSearchOpen(true)}
-                            className="w-11 h-11 border border-slate-200 rounded-full flex items-center justify-center hover:bg-[#e63946] hover:text-white hover:border-[#e63946] transition-all"
+                            className="w-11 h-11 border border-slate-200 rounded-full flex items-center justify-center"
                         >
                             <Search size={18} />
                         </button>
@@ -324,13 +225,7 @@ const Header = () => {
                             )}
                         </Link>
 
-                        {/* BUTTON */}
-                        <Link
-                            href="/contact"
-                            className="hidden md:flex h-11 px-6 bg-[#e63946] text-white rounded-full items-center justify-center text-sm font-semibold hover:bg-slate-900 transition-colors"
-                        >
-                            Get Quote
-                        </Link>
+
 
                         {/* MOBILE MENU */}
                         <button
@@ -343,71 +238,10 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* SEARCH MODAL */}
-            <div
-                className={`fixed inset-0 z-[120] bg-black/50 transition-all duration-300 ${searchOpen
-                    ? "opacity-100 visible"
-                    : "opacity-0 invisible"
-                    }`}
-            >
-                <div className="flex items-start justify-center pt-24 px-4">
-
-                    <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden">
-
-                        {/* SEARCH TOP */}
-                        <div className="flex items-center border-b border-slate-200 px-5 h-16">
-
-                            <Search size={20} className="text-slate-400" />
-
-                            <input
-                                type="text"
-                                placeholder="Search products, services, brands..."
-                                className="flex-1 h-full px-4 outline-none text-slate-700"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-
-                            <button
-                                onClick={() => setSearchOpen(false)}
-                                className="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-                        {/* RESULTS */}
-                        <div className="max-h-[400px] overflow-y-auto">
-
-                            {searchTerm.length > 0 ? (
-                                filteredResults.length > 0 ? (
-                                    filteredResults.map((item, index) => (
-                                        <Link
-                                            key={index}
-                                            href={item.href}
-                                            onClick={() => setSearchOpen(false)}
-                                            className="flex items-center justify-between px-5 py-4 border-b border-slate-100 hover:bg-slate-50 transition-colors"
-                                        >
-                                            <span className="text-sm font-medium text-slate-700">
-                                                {item.name}
-                                            </span>
-
-                                            <Search size={16} className="text-slate-400" />
-                                        </Link>
-                                    ))
-                                ) : (
-                                    <div className="p-8 text-center text-slate-500 text-sm">
-                                        No results found
-                                    </div>
-                                )
-                            ) : (
-                                <div className="p-8 text-center text-slate-400 text-sm">
-                                    Start typing to search...
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <SearchModal
+                open={searchOpen}
+                onClose={() => setSearchOpen(false)}
+            />
 
             {/* MOBILE MENU */}
             <div
@@ -443,10 +277,10 @@ const Header = () => {
                     {/* MOBILE LINKS */}
                     <div className="p-5">
 
-                        {navLinks.map((item, index) => (
+                        {navLinks?.map((item, index) => (
                             <div key={index} className="border-b border-slate-100">
 
-                                {item.submenu ? (
+                                {item?.submenu ? (
                                     <>
                                         <button
                                             onClick={() =>
@@ -509,5 +343,3 @@ const Header = () => {
         </header>
     );
 };
-
-export default Header;

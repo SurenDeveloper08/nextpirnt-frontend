@@ -1,16 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ShoppingBag, ShieldCheck } from "lucide-react";
+
+interface CartItem {
+  _id?: string;
+  slug: string;
+  name: string;
+  image: string;
+  price: number;
+  qty: number;
+}
+
+interface CheckoutForm {
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
 
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
-  const [form, setForm] = useState({
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const addressRef = useRef<HTMLTextAreaElement>(null);
+
+  const [form, setForm] = useState<CheckoutForm>({
     name: "",
     phone: "",
     email: "",
@@ -19,315 +43,250 @@ export default function CheckoutPage() {
 
   // LOAD CART
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(data);
+    try {
+      const stored = localStorage.getItem("cart");
+      setCart(stored ? JSON.parse(stored) : []);
+    } catch {
+      setCart([]);
+    }
   }, []);
 
   // TOTAL
   const total = cart.reduce(
-    (sum, item) => sum + item.price * item.qty,
+    (sum, item) => sum + (item.price || 0) * item.qty,
     0
   );
 
-  // INPUT CHANGE
+  // HANDLE INPUT
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setForm({
-      ...form,
+    setForm((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
+
+  // VALID EMAIL
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   // PLACE ORDER
   const placeOrder = async () => {
-    if (!form.name || !form.phone || !form.address) {
-      alert("Please fill required fields");
+    if (loading) return;
+
+    // VALIDATION
+    if (!form.name.trim()) {
+      toast.error("Full Name is required");
+      nameRef.current?.focus();
       return;
     }
 
-    setLoading(true);
+    if (!form.phone.trim()) {
+      toast.error("Phone Number is required");
+      phoneRef.current?.focus();
+      return;
+    }
 
-    const order = {
-      customer: form,
-      items: cart,
-      total,
-    };
+    if (form.phone.replace(/\D/g, "").length < 8) {
+      toast.error("Enter valid phone number");
+      phoneRef.current?.focus();
+      return;
+    }
+
+    if (form.email.trim() && !isValidEmail(form.email)) {
+      toast.error("Enter valid email address");
+      emailRef.current?.focus();
+      return;
+    }
+
+    if (!form.address.trim()) {
+      toast.error("Delivery Address is required");
+      addressRef.current?.focus();
+      return;
+    }
+
+    if (cart.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
 
     try {
-      await fetch("/api/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(order),
-      });
+      setLoading(true);
 
-      localStorage.removeItem("cart");
+      const payload = {
+        customer: form,
+        items: cart.map((item) => ({
+          productId: item._id,
+          name: item.name,
+          image: item.image,
+          qty: item.qty,
+          price: item.price,
+        })),
+        total,
+      };
 
-      window.dispatchEvent(new Event("cartUpdated"));
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/order`,
+        payload
+      );
 
-      router.push("/success");
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
+      if (data?.success) {
+        setOrderPlaced(true);
+
+        toast.success("Order placed successfully!");
+
+        localStorage.removeItem("cart");
+        setCart([]);
+
+        setTimeout(() => {
+          router.replace("/success");
+        }, 1200);
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.message || "Order failed"
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  // EMPTY CART (safe)
+  if (!loading && cart.length === 0 && !orderPlaced) {
+    return (
+      <section className="min-h-[60vh] flex items-center justify-center px-4">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold">Your Cart is Empty</h2>
+          <p className="mt-3 text-slate-500">
+            Add products before checkout
+          </p>
+          <button
+            onClick={() => router.push("/products")}
+            className="mt-6 rounded-xl bg-[#e63946] px-6 py-3 text-white"
+          >
+            Continue Shopping
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  // SUCCESS SCREEN
+  if (orderPlaced) {
+    return (
+      <section className="min-h-[70vh] flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">✅</div>
+          <h2 className="text-3xl font-bold">Order Placed</h2>
+          <p className="mt-2 text-slate-500">
+            Redirecting...
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="bg-[#f8fafc] min-h-screen py-10 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
 
-        {/* HEADER */}
-        <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-8">
-          Shopping Cart
+        <h1 className="text-2xl md:text-3xl font-semibold mb-8">
+          Checkout
         </h1>
 
-        {/* MAIN GRID */}
-        <div className="grid lg:grid-cols-[1fr_420px] gap-8 items-start">
+        <div className="grid lg:grid-cols-[1fr_420px] gap-8">
 
-          {/* LEFT FORM */}
-          <div className="bg-white rounded-[28px] border border-slate-200 p-5 md:p-8 shadow-sm">
+          {/* FORM */}
+          <div className="bg-white p-6 rounded-3xl border shadow-sm">
 
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#e63946]">
-                <ShoppingBag size={22} />
-              </div>
-
+            <div className="flex items-center gap-3 mb-6">
+              <ShoppingBag />
               <div>
-                <h2 className="text-xl font-bold text-slate-900">
-                  Billing Details
-                </h2>
-
-                <p className="text-sm text-slate-500">
-                  Please enter your delivery details
+                <h2 className="font-bold">Billing Details</h2>
+                <p className="text-sm text-gray-500">
+                  Enter your details
                 </p>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-5">
+            {/* NAME */}
+            <input
+              ref={nameRef}
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Full Name"
+              className="w-full mb-3 p-3 border rounded-xl"
+            />
 
-              {/* NAME */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Full Name *
-                </label>
+            {/* PHONE */}
+            <input
+              ref={phoneRef}
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Phone"
+              className="w-full mb-3 p-3 border rounded-xl"
+            />
 
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="
-                    w-full h-12 rounded-xl border border-slate-200
-                    px-4 outline-none
-                    focus:border-[#e63946]
-                    transition
-                  "
-                />
-              </div>
+            {/* EMAIL */}
+            <input
+              ref={emailRef}
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Email (optional)"
+              className="w-full mb-3 p-3 border rounded-xl"
+            />
 
-              {/* PHONE */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Phone Number *
-                </label>
-
-                <input
-                  type="tel"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="+971 50 000 0000"
-                  className="
-                    w-full h-12 rounded-xl border border-slate-200
-                    px-4 outline-none
-                    focus:border-[#e63946]
-                    transition
-                  "
-                />
-              </div>
-
-              {/* EMAIL */}
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Email Address
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  className="
-                    w-full h-12 rounded-xl border border-slate-200
-                    px-4 outline-none
-                    focus:border-[#e63946]
-                    transition
-                  "
-                />
-              </div>
-
-              {/* ADDRESS */}
-              <div className="md:col-span-2">
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Delivery Address *
-                </label>
-
-                <textarea
-                  name="address"
-                  value={form.address}
-                  onChange={handleChange}
-                  placeholder="Enter your address"
-                  rows={5}
-                  className="
-                    w-full rounded-xl border border-slate-200
-                    p-4 outline-none resize-none
-                    focus:border-[#e63946]
-                    transition
-                  "
-                />
-              </div>
-
-            </div>
+            {/* ADDRESS */}
+            <textarea
+              ref={addressRef}
+              name="address"
+              value={form.address}
+              onChange={handleChange}
+              placeholder="Address"
+              className="w-full p-3 border rounded-xl"
+              rows={4}
+            />
           </div>
 
-          {/* ORDER SUMMARY */}
-          <div className="lg:sticky lg:top-24">
+          {/* SUMMARY */}
+          <div className="bg-white p-6 rounded-3xl border shadow-sm">
 
-            <div className="bg-white rounded-[28px] border border-slate-200 p-5 md:p-6 shadow-sm">
-
-              <div className="flex items-center justify-between mb-6">
-
-                <div>
-                  <h2 className="text-xl font-bold text-slate-900">
-                    Order Summary
-                  </h2>
-
-                  <p className="text-sm text-slate-500">
-                    {cart.length} Products
-                  </p>
-                </div>
-
-                <div className="w-11 h-11 rounded-2xl bg-slate-100 flex items-center justify-center">
-                  <ShieldCheck size={20} className="text-slate-700" />
-                </div>
-
-              </div>
-
-              {/* PRODUCTS */}
-              <div className="space-y-4 max-h-[350px] overflow-y-auto pr-1">
-
-                {cart.length === 0 ? (
-                  <div className="text-sm text-slate-500">
-                    Your cart is empty
-                  </div>
-                ) : (
-                  cart.map((item) => (
-                    <div
-                      key={item.slug}
-                      className="flex gap-4 border-b border-slate-100 pb-4"
-                    >
-
-                      {/* IMAGE */}
-                      <div className="w-20 h-20 rounded-2xl bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
-
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-[80%] h-[80%] object-contain"
-                        />
-
-                      </div>
-
-                      {/* INFO */}
-                      <div className="flex-1 min-w-0">
-
-                        <h3 className="text-sm font-semibold text-slate-800 line-clamp-2">
-                          {item.name}
-                        </h3>
-
-                        <div className="flex items-center justify-between mt-3">
-
-                          <p className="text-sm text-slate-500">
-                            Qty: {item.qty}
-                          </p>
-
-                          <p className="text-sm font-bold text-slate-900">
-                            AED {(item.price * item.qty).toLocaleString()}
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-                  ))
-                )}
-
-              </div>
-
-              {/* TOTAL */}
-              <div className="border-t border-slate-200 mt-6 pt-6">
-
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-slate-500">
-                    Subtotal
-                  </span>
-
-                  <span className="font-semibold text-slate-900">
-                    AED {total.toLocaleString()}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between mb-5">
-                  <span className="text-slate-500">
-                    Delivery
-                  </span>
-
-                  <span className="font-semibold text-green-600">
-                    Free
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between text-lg font-black text-slate-900">
-                  <span>Total</span>
-
-                  <span>
-                    AED {total.toLocaleString()}
-                  </span>
-                </div>
-
-                {/* BUTTON */}
-                <button
-                  onClick={placeOrder}
-                  disabled={loading || cart.length === 0}
-                  className="
-                    w-full h-14 rounded-2xl
-                    bg-[#e63946]
-                    text-white font-semibold
-                    mt-6
-                    hover:bg-red-700
-                    disabled:bg-slate-300
-                    disabled:cursor-not-allowed
-                    transition-all
-                  "
-                >
-                  {loading ? "Processing Order..." : "Place Order"}
-                </button>
-
-              </div>
-
+            <div className="flex justify-between mb-4">
+              <h2 className="font-bold">Summary</h2>
+              <ShieldCheck />
             </div>
+
+            {cart.map((item) => (
+              <div
+                key={item.slug}
+                className="flex justify-between py-2 border-b"
+              >
+                <span>{item.name}</span>
+                <span>
+                  AED {(item.price * item.qty).toFixed(2)}
+                </span>
+              </div>
+            ))}
+
+            <div className="mt-4 font-bold text-lg">
+              Total: AED {total.toFixed(2)}
+            </div>
+
+            <button
+              onClick={placeOrder}
+              disabled={loading}
+              className="w-full mt-6 bg-[#e63946] text-white py-3 rounded-2xl"
+            >
+              {loading ? "Processing..." : "Place Order"}
+            </button>
 
           </div>
 
         </div>
-
       </div>
     </section>
   );

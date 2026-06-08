@@ -66,47 +66,31 @@ export default function AboutSection() {
           </motion.div>
 
           {/* RIGHT SIDE */}
+          {/* RIGHT SIDE */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="min-h-[520px] lg:min-h-[600px] flex flex-col justify-between"
+            className="min-h-[520px] lg:min-h-[600px] flex items-center justify-center"
           >
-            {/* Image 1 */}
-            <div className="flex justify-start">
-              <div className="relative overflow-hidden rounded-2xl w-full max-w-sm h-[160px] group shadow-md">
-                <img
-                  src={images[0]}
-                  className="w-full h-full object-cover group-hover:scale-105 transition"
-                  alt="Printer Solutions"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              </div>
-            </div>
+            <div className="relative overflow-hidden rounded-3xl w-full max-w-md h-[500px] shadow-lg group">
 
-            {/* Image 2 */}
-            <div className="flex justify-end">
-              <div className="relative overflow-hidden rounded-2xl w-full max-w-sm h-[180px] group shadow-md">
-                <img
-                  src={images[1]}
-                  className="w-full h-full object-cover group-hover:scale-105 transition"
-                  alt="Printer Repair"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              </div>
-            </div>
+              <img
+                src="/images/amc.png"
+                className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                alt="Printer Services UAE"
+              />
 
-            {/* Image 3 */}
-            <div className="flex justify-start">
-              <div className="relative overflow-hidden rounded-2xl w-full max-w-sm h-[200px] group shadow-md">
-                <img
-                  src={images[2]}
-                  className="w-full h-full object-cover group-hover:scale-105 transition"
-                  alt="AMC Support"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              </div>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+              {/* Optional label */}
+              {/* <div className="absolute bottom-5 left-5 text-white">
+                <p className="text-lg font-bold">Complete Printing Solutions</p>
+                <p className="text-sm opacity-80">Sales • Repair • AMC</p>
+              </div> */}
+
             </div>
           </motion.div>
 

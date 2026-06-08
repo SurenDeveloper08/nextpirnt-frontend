@@ -15,7 +15,6 @@ const CommentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", form);
     alert("Comment submitted successfully!");
   };
 

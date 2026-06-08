@@ -6,49 +6,87 @@ import { usePathname } from "next/navigation";
 export default function Breadcrumbs() {
   const pathname = usePathname();
 
+  const hiddenSegments = [
+    "category",
+    "product",
+    "service",
+  ];
+
   const pathnames = pathname
     .split("/")
-    .filter((x) => x);
+    .filter(
+      (segment) =>
+        segment &&
+        !hiddenSegments.includes(segment)
+    );
 
   return (
-    <div className="flex items-center flex-wrap gap-2 text-sm text-slate-500">
+    <nav
+      aria-label="Breadcrumb"
+      className="mt-3"
+    >
+      <ol className="flex flex-wrap items-center gap-2 text-sm">
 
-      {/* HOME */}
-      <Link
-        href="/"
-        className="hover:text-[#e63946] transition-colors"
-      >
-        Home
-      </Link>
-
-      {/* DYNAMIC PATHS */}
-      {pathnames.map((value, index) => {
-        const href = "/" + pathnames.slice(0, index + 1).join("/");
-
-        const isLast = index === pathnames.length - 1;
-
-        return (
-          <div
-            key={href}
-            className="flex items-center gap-2"
+        <li>
+          <Link
+            href="/"
+            className="text-slate-500 hover:text-[#e63946]"
           >
-            <span>/</span>
+            Home
+          </Link>
+        </li>
 
-            {isLast ? (
-              <span className="text-slate-900 font-medium capitalize">
-                {decodeURIComponent(value).replace(/-/g, " ")}
-              </span>
-            ) : (
-              <Link
-                href={href}
-                className="hover:text-[#e63946] transition-colors capitalize"
+        {pathnames.map(
+          (segment, index) => {
+            const href =
+              "/" +
+              pathname
+                .split("/")
+                .filter(Boolean)
+                .slice(0, index + 1)
+                .join("/");
+
+            const isLast =
+              index ===
+              pathnames.length - 1;
+
+            const label =
+              decodeURIComponent(
+                segment
+              )
+                .replace(/-/g, " ")
+                .replace(
+                  /\b\w/g,
+                  (char) =>
+                    char.toUpperCase()
+                );
+
+            return (
+              <li
+                key={segment}
+                className="flex items-center gap-2"
               >
-                {decodeURIComponent(value).replace(/-/g, " ")}
-              </Link>
-            )}
-          </div>
-        );
-      })}
-    </div>
+                <span className="text-slate-400">
+                  /
+                </span>
+
+                {isLast ? (
+                  <span className="font-medium text-slate-900">
+                    {label}
+                  </span>
+                ) : (
+                  <Link
+                    href={href}
+                    className="text-slate-500 hover:text-[#e63946]"
+                  >
+                    {label}
+                  </Link>
+                )}
+              </li>
+            );
+          }
+        )}
+      </ol>
+    </nav>
   );
 }

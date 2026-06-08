@@ -5,7 +5,7 @@ import {
   Send,
   Clock3,
 } from "lucide-react";
-
+import ContactForm from "@/app/components/ContactForm.tsx"
 export const metadata = {
   title: "Contact Us | NexPrint UAE",
   description:
@@ -75,7 +75,7 @@ export default function ContactPage() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/971501234567"
+                href="https://wa.me/9710527761348"
                 target="_blank"
                 className="block text-center bg-green-500 text-white font-bold py-4 mt-6"
               >
@@ -85,183 +85,10 @@ export default function ContactPage() {
             </div>
 
             <div className="lg:col-span-3">
-
-              <div className="bg-white border border-slate-200 rounded-[32px] p-6 md:p-10 shadow-sm">
-
-                <div className="mb-8">
-
-                  <span className="inline-flex px-4 py-1.5 rounded-full bg-red-50 text-[#e63946] text-sm font-semibold mb-4">
-                    Send Message
-                  </span>
-
-                  <h2 className="text-2xl md:text-3xl font-black text-slate-900">
-                    Request a Quote
-                  </h2>
-
-                  <p className="text-slate-500 mt-3 leading-relaxed">
-                    Fill out the form and our team will contact you shortly.
-                  </p>
-
-                </div>
-
-                <form
-                  action="/api/contact"
-                  method="POST"
-                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
-                >
-
-                  {/* NAME */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">
-                      Full Name
-                    </label>
-
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="John Doe"
-                      className="
-                        w-full h-14 px-5
-                        rounded-2xl
-                        border border-slate-200
-                        bg-slate-50
-                        focus:bg-white
-                        focus:border-[#e63946]
-                        outline-none
-                        transition-all
-                      "
-                    />
-                  </div>
-
-                  {/* EMAIL */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">
-                      Email Address
-                    </label>
-
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="john@company.com"
-                      className="
-                        w-full h-14 px-5
-                        rounded-2xl
-                        border border-slate-200
-                        bg-slate-50
-                        focus:bg-white
-                        focus:border-[#e63946]
-                        outline-none
-                        transition-all
-                      "
-                    />
-                  </div>
-
-                  {/* PHONE */}
-                  <div className="space-y-2 md:col-span-2">
-                    <label className="text-sm font-semibold text-slate-700">
-                      Phone Number
-                    </label>
-
-                    <input
-                      type="text"
-                      name="phone"
-                      placeholder="+971..."
-                      className="
-                        w-full h-14 px-5
-                        rounded-2xl
-                        border border-slate-200
-                        bg-slate-50
-                        focus:bg-white
-                        focus:border-[#e63946]
-                        outline-none
-                        transition-all
-                      "
-                    />
-                  </div>
-
-                  {/* SERVICE */}
-                  <div className="space-y-2 md:col-span-2">
-                    <label className="text-sm font-semibold text-slate-700">
-                      Service Required
-                    </label>
-
-                    <select
-                      name="service"
-                      className="
-                        w-full h-14 px-5
-                        rounded-2xl
-                        border border-slate-200
-                        bg-slate-50
-                        focus:bg-white
-                        focus:border-[#e63946]
-                        outline-none
-                        transition-all
-                      "
-                    >
-                      <option>Printer AMC</option>
-                      <option>Printer Rental</option>
-                      <option>Repair Service</option>
-                      <option>Consumables</option>
-                    </select>
-                  </div>
-
-                  {/* MESSAGE */}
-                  <div className="space-y-2 md:col-span-2">
-                    <label className="text-sm font-semibold text-slate-700">
-                      Message
-                    </label>
-
-                    <textarea
-                      name="message"
-                      rows={5}
-                      required
-                      placeholder="Tell us your requirements..."
-                      className="
-                        w-full px-5 py-4
-                        rounded-2xl
-                        border border-slate-200
-                        bg-slate-50
-                        focus:bg-white
-                        focus:border-[#e63946]
-                        outline-none
-                        resize-none
-                        transition-all
-                      "
-                    />
-                  </div>
-
-                  {/* BUTTON */}
-                  <div className="md:col-span-2 pt-2">
-
-                    <button
-                      type="submit"
-                      className="
-                        w-full h-14
-                        rounded-2xl
-                        bg-[#e63946]
-                        hover:bg-slate-900
-                        text-white font-semibold
-                        flex items-center justify-center gap-2
-                        transition-all duration-300
-                        shadow-lg hover:shadow-xl
-                      "
-                    >
-                      Send Message
-                      <Send size={18} />
-                    </button>
-
-                  </div>
-
-                </form>
-
-              </div>
-
+              <ContactForm />
             </div>
-
           </div>
-        </div>
+          </div>
       </section>
 
       {/* MAP */}
