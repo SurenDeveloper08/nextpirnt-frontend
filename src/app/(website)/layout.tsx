@@ -1,6 +1,6 @@
 import Header from "../components/header";
 import Footer from "../components/Footer";
-
+import FloatingContact from "../components/FloatingContact";
 export const dynamic = "force-dynamic";
 
 async function getNavbar() {
@@ -34,6 +34,7 @@ export default async function Layout({
     <>
       <Header navLinks={navLinks} />
       {children}
+      <FloatingContact />
       <Footer navLinks={navLinks} />
     </>
   );
