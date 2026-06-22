@@ -4,10 +4,10 @@ import Link from "next/link";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 
 import { addToCart } from "@/lib/cart";
-import type { Product } from "@/types/product";
+import type { ProductCard } from "@/types/product";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductCard;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="flex flex-col flex-1 p-3 sm:p-4">
 
         <p className="text-[11px] text-slate-500 mb-1 truncate">
-          {product.brand}
+          {product?.brand?.name}
         </p>
 
         <Link href={productUrl}>
@@ -43,11 +43,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Link>
 
         {/* PRICE */}
-        <div className="mt-3">
-          <span className="text-lg font-bold text-slate-900">
-            AED {product.price}
-          </span>
-        </div>
+        {/* {product.price && (
+          <div className="mt-3">
+            <span className="text-lg font-bold text-slate-900">
+              AED {product.price}
+            </span>
+          </div>
+        )} */}
 
         {/* ACTIONS */}
         <div className="mt-auto pt-4 flex gap-2">
@@ -60,12 +62,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             Add To Cart
           </button>
 
-          <Link
+          {/* <Link
             href={productUrl}
             className="h-11 w-11 rounded-xl border border-slate-200 flex items-center justify-center hover:border-[#e63946] hover:text-[#e63946] transition-all"
           >
             <ArrowRight size={16} />
-          </Link>
+          </Link> */}
 
         </div>
       </div>

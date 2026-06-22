@@ -19,7 +19,8 @@ export default function ProductClient({
   const whatsappMessage = encodeURIComponent(
     `Hello, I'm interested in ${product.name}. Please provide more details.`
   );
-
+const hasPrice = Number(product.price) > 0;
+const hasSalePrice = Number(product.salePrice) > 0;
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12 pb-24 md:pb-12">
       {/* TOP SECTION */}
@@ -42,31 +43,27 @@ export default function ProductClient({
           <h1 className="text-2xl md:text-4xl font-bold mt-2 leading-tight">
             {product.name}
           </h1>
-          {(product.price || product.salePrice) && (
-            <div className="mt-5">
+      {(hasPrice || hasSalePrice) && (
+  <div className="flex flex-wrap items-center gap-3">
+    {hasSalePrice && (
+      <span className="text-3xl font-bold text-red-600">
+        AED {Number(product.salePrice).toLocaleString()}
+      </span>
+    )}
 
-              {product.salePrice ? (
-                <div className="flex flex-wrap items-center gap-3">
-
-                  <span className="text-3xl font-bold text-red-600">
-                    AED {product.salePrice.toLocaleString()}
-                  </span>
-
-                  {product.price && (
-                    <span className="text-lg text-gray-400 line-through">
-                      AED {product.price.toLocaleString()}
-                    </span>
-                  )}
-
-                </div>
-              ) : (
-                <span className="text-3xl font-bold text-red-600">
-                  AED {product.price.toLocaleString()}
-                </span>
-              )}
-
-            </div>
-          )}
+    {hasPrice && (
+      <span
+        className={
+          hasSalePrice
+            ? "text-lg text-gray-400 line-through"
+            : "text-3xl font-bold text-slate-900"
+        }
+      >
+        AED {Number(product.price).toLocaleString()}
+      </span>
+    )}
+  </div>
+)}
           {product.shortDescription && (
             <p className="mt-5 text-gray-600 leading-relaxed">
               {product.shortDescription}

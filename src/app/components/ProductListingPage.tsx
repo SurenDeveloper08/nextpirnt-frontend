@@ -4,13 +4,13 @@ import React, { useMemo, useState } from "react";
 import ProductFilters from "./ProductFilters";
 import ProductGrid from "./ProductGrid";
 import Breadcrumbs from "./Breadcrumbs";
-import { Product } from "@/types/product";
+import { ProductCard } from "@/types/product";
 
 interface ProductListingProps {
   title: string;
   description: string,
   category?: string;
-  products: Product[];
+  products: ProductCard[];
 }
 
 export default function ProductListing({

@@ -29,14 +29,14 @@ export default function BlogsPage() {
     return (
         <section className="min-h-screen bg-[#f8f9fa] py-24 px-6 md:px-12">
 
-            {/* <div className="text-center space-y-4">
+           <div className="text-center space-y-4">
                 <h1 className="text-4xl md:text-5xl font-black text-gray-900">
                     Our Latest Blogs
                 </h1>
                 <p className="text-gray-500 max-w-xl mx-auto">
                     Insights, guides, and expert tips about printer sales, rental, and maintenance.
                 </p>
-            </div> */}
+            </div> 
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {blogs.map((blog) => (

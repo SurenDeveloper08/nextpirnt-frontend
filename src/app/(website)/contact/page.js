@@ -88,7 +88,7 @@ export default function ContactPage() {
               <ContactForm />
             </div>
           </div>
-          </div>
+        </div>
       </section>
 
       {/* MAP */}
@@ -97,7 +97,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto rounded-[32px] overflow-hidden border border-slate-200 shadow-sm">
 
           <iframe
-            src="https://maps.google.com/maps?q=Abu%20Dhabi&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3634.333836570622!2d54.4919375!3d24.369687499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e4191bcfae84d%3A0x347b9cd4493ab40a!2sNexprint%20Office%20Equipments%20Llc!5e0!3m2!1sen!2sae!4v1782043233022!5m2!1sen!2sae"
             className="w-full h-[320px] md:h-[450px] border-0"
             loading="lazy"
           ></iframe>

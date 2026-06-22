@@ -38,7 +38,29 @@ interface HeaderProps {
 }
 
 export default function Header({ navLinks }: HeaderProps) {
+    const menuItems = [
+        {
+            name: "Home",
+            href: "/",
+        },
 
+        ...navLinks.filter(
+            (item) =>
+                item.name !== "Home" &&
+                item.name !== "About Us" &&
+                item.name !== "Blog"
+        ),
+
+        {
+            name: "About Us",
+            href: "/about",
+        },
+
+        {
+            name: "Blog",
+            href: "/blogs",
+        },
+    ];
     const count = useCartCount();
     const [mobileMenu, setMobileMenu] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
@@ -151,54 +173,54 @@ export default function Header({ navLinks }: HeaderProps) {
                     </Link>
 
                     {/* DESKTOP NAV */}
-                    <nav className="hidden lg:flex items-center gap-8">
+                    <div className="flex items-center flex-1 justify-center px-6">
 
-                        {navLinks?.map((item, index) => {
-                            const hasSubmenu = (item.submenu?.length ?? 0) > 0;
+                        <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8 overflow-visible">
 
-                            return (
-                                <div key={index} className="relative group">
+                            {menuItems.map((item, index) => {
+                                const hasSubmenu = (item.submenu?.length ?? 0) > 0;
 
-                                    {hasSubmenu ? (
-                                        <>
-                                            {/* MAIN LINK */}
+                                return (
+                                    <div
+                                        key={index}
+                                        className="relative group flex-shrink-0"
+                                    >
+                                        {hasSubmenu ? (
+                                            <>
+                                                <Link
+                                                    href={item.href}
+                                                    className="flex items-center gap-1 text-[14px] xl:text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors whitespace-nowrap"
+                                                >
+                                                    {item.name}
+                                                    <ChevronDown size={15} />
+                                                </Link>
+
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-3 group-hover:translate-y-0 transition-all duration-300 bg-white shadow-2xl border border-slate-100 min-w-[280px] py-3 rounded-2xl z-50">
+                                                    {item.submenu?.map((sub, subIndex) => (
+                                                        <Link
+                                                            key={subIndex}
+                                                            href={sub.href}
+                                                            className="block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-[#e63946]"
+                                                        >
+                                                            {sub.name}
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        ) : (
                                             <Link
                                                 href={item.href}
-                                                className="flex items-center gap-1 text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors"
+                                                className="text-[14px] xl:text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors whitespace-nowrap"
                                             >
                                                 {item.name}
-                                                <ChevronDown size={16} />
                                             </Link>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </nav>
 
-                                            {/* DROPDOWN */}
-                                            <div className="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-3 group-hover:translate-y-0 transition-all duration-300 bg-white shadow-2xl border border-slate-100 min-w-[280px] py-3 rounded-2xl">
-
-                                                {item.submenu?.map((sub, subIndex) => (
-                                                    <Link
-                                                        key={subIndex}
-                                                        href={sub.href}
-                                                        className="block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-[#e63946] transition-colors"
-                                                    >
-                                                        {sub.name}
-                                                    </Link>
-                                                ))}
-
-                                            </div>
-                                        </>
-                                    ) : (
-                                        /* SIMPLE LINK */
-                                        <Link
-                                            href={item.href}
-                                            className="text-[15px] font-semibold text-slate-800 hover:text-[#e63946] transition-colors"
-                                        >
-                                            {item.name}
-                                        </Link>
-                                    )}
-
-                                </div>
-                            );
-                        })}
-                    </nav>
+                    </div>
 
                     {/* RIGHT SIDE */}
                     <div className="flex items-center gap-3">
@@ -260,24 +282,23 @@ export default function Header({ navLinks }: HeaderProps) {
                     {/* MOBILE HEADER */}
                     <div className="h-20 px-5 border-b border-slate-200 flex items-center justify-between">
 
-                        <img
-                            src="/logo.png"
-                            alt="Logo"
-                            className="h-10 w-auto"
-                        />
-
+                         <h3 className="text-lg font-bold text-slate-900">
+                                Menu
+                            </h3>
+                       
                         <button
                             onClick={() => setMobileMenu(false)}
-                            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center"
+                            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#e63946] hover:text-white hover:border-[#e63946] transition-all"
                         >
                             <X size={20} />
                         </button>
+
                     </div>
 
                     {/* MOBILE LINKS */}
                     <div className="p-5">
 
-                        {navLinks?.map((item, index) => (
+                        {menuItems.map((item, index) => (
                             <div key={index} className="border-b border-slate-100">
 
                                 {item?.submenu ? (
@@ -328,14 +349,6 @@ export default function Header({ navLinks }: HeaderProps) {
                                 )}
                             </div>
                         ))}
-
-                        {/* MOBILE BUTTON */}
-                        <Link
-                            href="/contact"
-                            className="mt-6 h-12 bg-[#e63946] text-white rounded-full flex items-center justify-center text-sm font-semibold"
-                        >
-                            Get Quote
-                        </Link>
 
                     </div>
                 </div>

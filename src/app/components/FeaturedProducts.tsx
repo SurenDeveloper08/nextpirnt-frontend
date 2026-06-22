@@ -164,7 +164,7 @@ export default function FeaturedProducts({
             {products.map((product, index) => (
 
               <motion.div
-                key={product.id}
+                key={product._id || product.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{

@@ -1,8 +1,8 @@
-import { Product } from "@/types/product";
-import ProductCard from "./ProductCard";
+import { ProductCard } from "@/types/product";
+import ProductCardComponent  from "./ProductCard";
 
 interface Props {
-  products?: Product[];
+  products?: ProductCard[];
 }
 
 export default function ProductGrid({
@@ -57,7 +57,7 @@ export default function ProductGrid({
       key={product.id}
       className="h-full"
     >
-      <ProductCard product={product} />
+      <ProductCardComponent  product={product} />
     </article>
   ))}
 </div>

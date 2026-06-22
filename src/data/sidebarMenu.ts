@@ -56,8 +56,18 @@ export const sidebarMenu = [
     icon: Users,
   },
   {
-    title: "Settings",
-    href: "/admin/settings",
+    title: "Blogs",
+    href: "/admin/blogs",
+    icon: Settings,
+  },
+   {
+    title: "About",
+    href: "/admin/about",
+    icon: Settings,
+  },
+   {
+    title: "SEO",
+    href: "/admin/seo",
     icon: Settings,
   },
 ];

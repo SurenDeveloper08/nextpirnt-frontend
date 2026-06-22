@@ -120,86 +120,87 @@ export default function ServicesSection() {
               service,
               index
             ) => (
-
-              <motion.div
-                key={service._id}
-                initial={{
-                  opacity: 0,
-                  y: 60,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: 0.6,
-                  delay:
-                    index * 0.1,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                className="group relative overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-500 hover:shadow-2xl"
+              <Link
+                href={`/services/${service.slug}`}
               >
+                <motion.div
+                  key={service._id}
+                  initial={{
+                    opacity: 0,
+                    y: 60,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    delay:
+                      index * 0.1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  className="group relative overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-500 hover:shadow-2xl"
+                >
 
-                {/* IMAGE */}
+                  {/* IMAGE */}
 
-                <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-64 overflow-hidden">
 
-                  <img
-                    src={service.image}
-                    alt={
-                      service.name
-                    }
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                  <div className="absolute bottom-6 left-6">
-
-                    <h3 className="text-2xl font-bold text-white">
-                      {
+                    <img
+                      src={service.image}
+                      alt={
                         service.name
                       }
-                    </h3>
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                    <div className="absolute bottom-6 left-6">
+
+                      <h3 className="text-2xl font-bold text-white">
+                        {
+                          service.name
+                        }
+                      </h3>
+
+                    </div>
 
                   </div>
 
-                </div>
+                  {/* CONTENT */}
 
-                {/* CONTENT */}
+                  <div className="flex flex-col p-7">
 
-                <div className="flex flex-col p-7">
+                    <p className="mb-7 line-clamp-3 text-[15px] leading-relaxed text-slate-600">
 
-                  <p className="mb-7 line-clamp-3 text-[15px] leading-relaxed text-slate-600">
+                      {
+                        service.shortDescription
+                      }
 
-                    {
-                      service.shortDescription
-                    }
+                    </p>
 
-                  </p>
+                    <div
+                      className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 transition-colors hover:text-[#e63946]"
+                    >
 
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 transition-colors hover:text-[#e63946]"
-                  >
+                      Learn More
 
-                    Learn More
+                      <ArrowRight
+                        size={16}
+                        className="transition-transform duration-300 group-hover:translate-x-1"
+                      />
 
-                    <ArrowRight
-                      size={16}
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    />
+                    </div>
 
-                  </Link>
+                  </div>
 
-                </div>
+                  <div className="pointer-events-none absolute inset-0 rounded-[28px] border-2 border-transparent transition-all duration-500 group-hover:border-[#e63946]/20"></div>
 
-                <div className="pointer-events-none absolute inset-0 rounded-[28px] border-2 border-transparent transition-all duration-500 group-hover:border-[#e63946]/20"></div>
-
-              </motion.div>
-
+                </motion.div>
+              </Link>
             )
           )}
 
