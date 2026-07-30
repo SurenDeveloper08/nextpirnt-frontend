@@ -200,10 +200,10 @@ export default function Footer({ navLinks }: FooterProps) {
                   </p>
 
                   <a
-                    href="tel:+971527761348"
+                    href="tel:+971 55 532 8978"
                     className="font-semibold text-slate-900 hover:text-[#e63946]"
                   >
-                    +971 52 776 1348
+                    +971 55 532 8978
                   </a>
                 </div>
               </div>
@@ -222,10 +222,10 @@ export default function Footer({ navLinks }: FooterProps) {
                   </p>
 
                   <a
-                    href="mailto:nexprintuae@gmail.com"
+                    href="mailto:sales@nexprint.ae"
                     className="font-semibold text-slate-900 hover:text-[#e63946]"
                   >
-                    nexprintuae@gmail.com
+                    sales@nexprint.ae
                   </a>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export default function Footer({ navLinks }: FooterProps) {
                   </p>
 
                   <h4 className="font-semibold text-slate-900 leading-relaxed">
-                    Musaffah, Abu Dhabi, UAE
+                   Mussaffah M-13, Abudhabi, UAE
                   </h4>
                 </div>
               </div>

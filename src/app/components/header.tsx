@@ -78,19 +78,19 @@ export default function Header({ navLinks }: HeaderProps) {
                     {/* LEFT */}
                     <div className="flex items-center gap-6 text-sm">
                         <a
-                            href="tel:+971527761348"
+                            href="tel:+971 55 532 8978"
                             className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
                         >
                             <Phone size={15} />
-                            +971 52 776 1348
+                            +971 55 532 8978
                         </a>
 
                         <a
-                            href="mailto:nexprintuae@gmail.com"
+                            href="mailto:sales@nexprint.ae"
                             className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
                         >
                             <Mail size={15} />
-                            nexprintuae@gmail.com
+                           sales@nexprint.ae
                         </a>
                     </div>
 

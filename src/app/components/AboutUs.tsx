@@ -32,7 +32,7 @@ const AboutNexPrint = () => {
             </p>
 
             <div className="pt-4 flex gap-4">
-               <a href="tel:+971XXXXXXXXX" className="bg-[#e63946] text-white px-6 py-3 font-bold text-sm uppercase tracking-widest hover:bg-black transition-all">
+               <a href="tel:+971 55 532 8978" className="bg-[#e63946] text-white px-6 py-3 font-bold text-sm uppercase tracking-widest hover:bg-black transition-all">
                  Contact Specialist
                </a>
                <a href="/services" className="border border-slate-200 text-slate-900 px-6 py-3 font-bold text-sm uppercase tracking-widest hover:bg-slate-50 transition-all">

@@ -55,12 +55,12 @@ const ContactSection = () => {
                 {
                   icon: Phone,
                   title: "Call Us",
-                  value: "+971 50 123 4567",
+                  value: "+971 55 532 8978",
                 },
                 {
                   icon: Mail,
                   title: "Email Support",
-                  value: "support@nexprint.ae",
+                  value: "sales@nexprint.ae",
                 },
                 {
                   icon: MapPin,
@@ -167,7 +167,7 @@ const ContactSection = () => {
 
                   <input
                     type="text"
-                    placeholder="+971 50 000 0000"
+                    placeholder="+971 55 532 8978"
                     className="w-full h-14 rounded-2xl border border-slate-200 bg-slate-50 px-5 outline-none focus:border-[#e63946] focus:bg-white transition-all"
                   />
                 </div>

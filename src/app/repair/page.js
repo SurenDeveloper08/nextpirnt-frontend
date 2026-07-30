@@ -49,7 +49,7 @@ const RepairPage = () => {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <a href="tel:+971556449916" className="bg-[#101828] text-white px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#e63946] transition-all flex items-center gap-3">
+              <a href="tel:+971 55 532 8978" className="bg-[#101828] text-white px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#e63946] transition-all flex items-center gap-3">
                 <PhoneCall size={18} /> Book Technician
               </a>
               <button className="border-2 border-gray-100 px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-gray-50 transition-all">

@@ -1,9 +1,9 @@
 "use client";
 
 import React from 'react';
-import { 
-  Wrench, ShieldCheck, CheckCircle, 
-  ArrowRight, PhoneCall, Zap, 
+import {
+  Wrench, ShieldCheck, CheckCircle,
+  ArrowRight, PhoneCall, Zap,
   Settings2, Activity, Cpu, Award
 } from 'lucide-react';
 
@@ -16,26 +16,26 @@ const HPRepairPage = () => {
   ];
 
   const hpExpertise = [
-    { 
-      title: "Genuine HP Parts", 
+    {
+      title: "Genuine HP Parts",
       desc: "We exclusively use HP Original fusers, rollers, and transfer belts to ensure JetIntelligence standards.",
-      icon: <Award className="text-[#0096D6]" size={24} /> 
+      icon: <Award className="text-[#0096D6]" size={24} />
     },
-    { 
-      title: "Firmware Security", 
+    {
+      title: "Firmware Security",
       desc: "Updating HP Wolf Security protocols and clearing 'Supply Memory' or '59.F0' error codes.",
-      icon: <Cpu className="text-[#0096D6]" size={24} /> 
+      icon: <Cpu className="text-[#0096D6]" size={24} />
     },
-    { 
-      title: "Color Calibration", 
+    {
+      title: "Color Calibration",
       desc: "Expert Pantone matching for HP DesignJet units used in architecture and marketing firms.",
-      icon: <Activity className="text-[#0096D6]" size={24} /> 
+      icon: <Activity className="text-[#0096D6]" size={24} />
     }
   ];
 
   return (
     <div className="bg-white text-[#101828] font-sans selection:bg-[#0096D6] selection:text-white">
-      
+
       {/* --- 1. HP THEMED HERO --- */}
       <section className="pt-32 pb-20 px-6 max-w-[1400px] mx-auto">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
@@ -43,18 +43,18 @@ const HPRepairPage = () => {
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-blue-50 rounded-full">
               <span className="text-[10px] font-black uppercase tracking-widest text-[#0096D6]">Authorized HP Service Standards</span>
             </div>
-            
+
             <h1 className="text-5xl md:text-8xl font-[950] tracking-tighter uppercase leading-[0.85]">
               HP <span className="text-[#0096D6]">Repair</span> <br />
               Experts.
             </h1>
-            
+
             <p className="text-xl text-gray-500 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0">
               Specialized maintenance for HP LaserJet, DesignJet, and PageWide systems. We fix the complex issues that others can't.
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <a href="tel:+971556449916" className="bg-[#101828] text-white px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#0096D6] transition-all flex items-center gap-3">
+              <a href="tel:+971 55 532 8978" className="bg-[#101828] text-white px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-[#0096D6] transition-all flex items-center gap-3">
                 <PhoneCall size={18} /> Call HP Specialist
               </a>
               <button className="border-2 border-gray-100 px-8 py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-gray-50 transition-all">
@@ -65,8 +65,8 @@ const HPRepairPage = () => {
 
           <div className="flex-1 relative w-full">
             <div className="aspect-square bg-gray-50 rounded-[4rem] overflow-hidden relative group">
-              <img 
-                src="https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&q=80&w=1000" 
+              <img
+                src="https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&q=80&w=1000"
                 alt="Repairing HP LaserJet Enterprise Printer"
                 className="w-full h-full object-cover"
               />
@@ -86,7 +86,7 @@ const HPRepairPage = () => {
       </section>
 
       {/* --- 2. THE HP SERIES GRID (SEO) --- */}
-      
+
       <section className="py-24 bg-gray-50/50 px-6">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

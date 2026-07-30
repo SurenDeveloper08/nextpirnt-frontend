@@ -113,19 +113,19 @@ const Header = () => {
           {/* LEFT */}
           <div className="flex items-center gap-6 text-sm">
             <a
-              href="tel:+971501234567"
+              href="tel:+971 55 532 8978"
               className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
             >
               <Phone size={15} />
-              +971 50 123 4567
+              +971 55 532 8978
             </a>
 
             <a
-              href="mailto:info@company.com"
+              href="mailto:sales@nexprint.ae"
               className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
             >
               <Mail size={15} />
-              info@company.com
+              sales@nexprint.ae
             </a>
           </div>
 

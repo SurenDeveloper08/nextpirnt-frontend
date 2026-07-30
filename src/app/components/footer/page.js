@@ -82,7 +82,7 @@ const Footer = () => {
             <ul className="space-y-6">
               <li className="flex items-start gap-4">
                 <Phone size={18} className="text-[#e63946] shrink-0" />
-                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300">+971 2 XXX XXXX</span>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300">+971 55 532 8978</span>
               </li>
               <li className="flex items-start gap-4">
                 <Mail size={18} className="text-[#e63946] shrink-0" />
@@ -91,7 +91,7 @@ const Footer = () => {
               <li className="flex items-start gap-4">
                 <MapPin size={18} className="text-[#e63946] shrink-0" />
                 <span className="text-[11px] font-bold uppercase tracking-widest text-slate-300 leading-relaxed">
-                  Mussafah Industrial Area,<br />Abu Dhabi, UAE
+                  Mussaffah M-13,<br />Abu Dhabi, UAE
                 </span>
               </li>
             </ul>

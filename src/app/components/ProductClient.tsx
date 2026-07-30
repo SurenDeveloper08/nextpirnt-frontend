@@ -95,7 +95,7 @@ const hasSalePrice = Number(product.salePrice) > 0;
             </button>
 
             <a
-              href={`https://wa.me/9710527761348?text=${whatsappMessage}`}
+              href={`https://wa.me/971555328978?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 h-14 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white rounded-xl font-semibold flex items-center justify-center gap-2 transition"
@@ -131,7 +131,7 @@ const hasSalePrice = Number(product.salePrice) > 0;
                 </button>
 
                 <a
-                  href={`https://wa.me/9710527761348?text=${whatsappMessage}`}
+                  href={`https://wa.me/971555328978?text=${whatsappMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="h-12 rounded-xl bg-green-600 text-white font-semibold text-sm flex items-center justify-center gap-2 active:scale-95 transition"

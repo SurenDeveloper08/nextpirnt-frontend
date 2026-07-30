@@ -39,7 +39,7 @@ export default function ServiceClient({
 
             <div className="mt-8">
               <a
-                href={`https://wa.me/9710527761348?text=${whatsappMessage}`}
+                href={`https://wa.me/971555328978?text=${whatsappMessage}`}
                 target="_blank"
                 className="
                   inline-flex
@@ -219,7 +219,7 @@ export default function ServiceClient({
           </p>
 
           <a
-            href={`https://wa.me/9710527761348?text=${whatsappMessage}`}
+            href={`https://wa.me/971555328978?text=${whatsappMessage}`}
             target="_blank"
             className="
               inline-flex

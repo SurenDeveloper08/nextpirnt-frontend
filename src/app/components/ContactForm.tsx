@@ -80,7 +80,7 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
             {/* Heading */}
             <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-900 uppercase">
@@ -148,7 +148,7 @@ const ContactForm = () => {
                     <input
                         type="text"
                         name="phone"
-                        placeholder="+971 50 123 4567"
+                        placeholder="+971 55 532 8978"
                         value={formData.phone}
                         onChange={handleChange}
                         required
