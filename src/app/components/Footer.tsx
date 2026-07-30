@@ -244,7 +244,7 @@ export default function Footer({ navLinks }: FooterProps) {
                   </p>
 
                   <h4 className="font-semibold text-slate-900 leading-relaxed">
-                   Mussaffah M-13, Abudhabi, UAE
+                   Mussafah M13, Abudhabi, UAE
                   </h4>
                 </div>
               </div>

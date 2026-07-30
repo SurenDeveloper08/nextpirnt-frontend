@@ -75,7 +75,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-sm text-slate-500">Office</p>
                     <p className="font-semibold text-lg text-slate-900 leading-relaxed">
-                      Mussaffah M-13,
+                      Mussafah M13, 
                       <br />
                       Abu Dhabi,
                       <br />
