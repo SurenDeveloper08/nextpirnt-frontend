@@ -64,7 +64,7 @@ export default function Footer({ navLinks }: FooterProps) {
           {/* Company */}
           <div>
             <img
-              src="/logo.jpeg"
+              src="/nexprint.PNG"
               alt="Logo"
               className="h-14 w-auto object-contain mb-6"
             />

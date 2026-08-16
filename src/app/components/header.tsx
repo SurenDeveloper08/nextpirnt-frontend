@@ -38,18 +38,36 @@ interface HeaderProps {
 }
 
 export default function Header({ navLinks }: HeaderProps) {
-    const menuItems = [
+    const services = navLinks.find(
+        (item) => item.name.toLowerCase() === "services"
+    );
+
+    const menuItems: NavItem[] = [
         {
             name: "Home",
             href: "/",
         },
 
-        ...navLinks.filter(
-            (item) =>
-                item.name !== "Home" &&
-                item.name !== "About Us" &&
-                item.name !== "Blog"
-        ),
+        ...(services ? [services] : []),
+
+        {
+            name: "Products",
+            href: "/products",
+            submenu: [
+                {
+                    name: "Consumables",
+                    href: "/products/consumables",
+                },
+                {
+                    name: "Printers & Machines",
+                    href: "/products/printers-machines",
+                },
+                {
+                    name: "Office Equipment",
+                    href: "/products/office-equipments",
+                },
+            ],
+        },
 
         {
             name: "About Us",
@@ -61,6 +79,7 @@ export default function Header({ navLinks }: HeaderProps) {
             href: "/blogs",
         },
     ];
+
     const count = useCartCount();
     const [mobileMenu, setMobileMenu] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
@@ -90,7 +109,7 @@ export default function Header({ navLinks }: HeaderProps) {
                             className="flex items-center gap-2 hover:text-[#e63946] transition-colors"
                         >
                             <Mail size={15} />
-                           sales@nexprint.ae
+                            sales@nexprint.ae
                         </a>
                     </div>
 
@@ -166,7 +185,7 @@ export default function Header({ navLinks }: HeaderProps) {
                     {/* LOGO */}
                     <Link href="/" className="flex-shrink-0">
                         <img
-                            src="/logo.jpeg"
+                            src="/nexprint.PNG"
                             alt="Logo"
                             className="h-12 w-auto object-contain"
                         />
@@ -282,10 +301,10 @@ export default function Header({ navLinks }: HeaderProps) {
                     {/* MOBILE HEADER */}
                     <div className="h-20 px-5 border-b border-slate-200 flex items-center justify-between">
 
-                         <h3 className="text-lg font-bold text-slate-900">
-                                Menu
-                            </h3>
-                       
+                        <h3 className="text-lg font-bold text-slate-900">
+                            Menu
+                        </h3>
+
                         <button
                             onClick={() => setMobileMenu(false)}
                             className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#e63946] hover:text-white hover:border-[#e63946] transition-all"
