@@ -68,7 +68,6 @@ export default function Header({ navLinks }: HeaderProps) {
                 },
             ],
         },
-
         {
             name: "About Us",
             href: "/about",
@@ -77,6 +76,10 @@ export default function Header({ navLinks }: HeaderProps) {
         {
             name: "Blog",
             href: "/blogs",
+        },
+        {
+            name: "Contact",
+            href: "/contact",
         },
     ];
 
@@ -368,7 +371,6 @@ export default function Header({ navLinks }: HeaderProps) {
                                 )}
                             </div>
                         ))}
-
                     </div>
                 </div>
             </div>
