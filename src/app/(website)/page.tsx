@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Hero from "../components/hero/page";
+// import Hero from "../components/hero/page";
+import Hero from "../components/Hero";
 import AboutSection from "../components/AboutUsSection";
 import Services from "../components/ServicesSection";
 
