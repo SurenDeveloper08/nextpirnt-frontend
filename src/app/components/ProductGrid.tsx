@@ -1,8 +1,8 @@
-import { ProductCard } from "@/types/product";
+import { Product } from "@/types/product";
 import ProductCardComponent  from "./ProductCard";
 
 interface Props {
-  products?: ProductCard[];
+  products?: Product[];
 }
 
 export default function ProductGrid({

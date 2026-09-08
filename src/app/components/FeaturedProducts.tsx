@@ -1,193 +1,82 @@
-"use client";
-
-import React, { useRef } from "react";
-import {
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import ProductCard from "./ProductCard";
-
+import type { Product } from "@/types/product";
 
 interface FeaturedProductsProps {
-  products: any[];
+  products?: Product[];
 }
 
 export default function FeaturedProducts({
-  products,
+  products = [],
 }: FeaturedProductsProps) {
+  const validProducts = products
+    .filter((product) => product && product.slug)
+    .slice(0, 8);
 
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(true);
-
-  const updateScrollButtons = () => {
-    if (!sliderRef.current) return;
-
-    const {
-      scrollLeft,
-      scrollWidth,
-      clientWidth,
-    } = sliderRef.current;
-
-    setCanScrollLeft(scrollLeft > 5);
-
-    setCanScrollRight(
-      scrollLeft + clientWidth < scrollWidth - 5
-    );
-  };
-
-  const scroll = (direction: "left" | "right") => {
-    if (!sliderRef.current) return;
-
-    sliderRef.current.scrollBy({
-      left: direction === "left" ? -320 : 320,
-      behavior: "smooth",
-    });
-
-    setTimeout(updateScrollButtons, 400);
-  };
-
-  React.useEffect(() => {
-
-    updateScrollButtons();
-
-    const slider = sliderRef.current;
-
-    if (!slider) return;
-
-    slider.addEventListener("scroll", updateScrollButtons);
-
-    window.addEventListener("resize", updateScrollButtons);
-
-    return () => {
-      slider.removeEventListener(
-        "scroll",
-        updateScrollButtons
-      );
-
-      window.removeEventListener(
-        "resize",
-        updateScrollButtons
-      );
-    };
-
-  }, []);
+  if (!validProducts.length) return null;
 
   return (
-    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
+    <section className="relative overflow-hidden bg-white py-14 sm:py-16 md:py-20 lg:py-24 xl:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-1/3 h-[400px] w-[400px] rounded-full bg-[#e63946]/[0.02] blur-3xl"
+      />
 
-      {/* Background Glow */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-red-50 rounded-full blur-3xl opacity-70" />
+      <div className="relative mx-auto w-full max-w-[1600px] px-5 sm:px-7 md:px-10 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="flex items-end justify-between gap-5">
+          <div>
+            <div className="mb-3 flex items-center gap-2.5">
+              <span className="h-[2px] w-7 rounded-full bg-[#e63946]" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+              <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-[#e63946] sm:text-[12px]">
+                Featured Products
+              </span>
+            </div>
 
-        {/* Header */}
-        <div className="text-center mb-14">
+            <h2 className="text-[29px] font-semibold leading-[1.18] tracking-[-0.025em] text-[#27303f] sm:text-[34px] md:text-[38px] lg:text-[44px]">
+              Our Featured{" "}
+              <span className="text-[#e63946]">
+                Products
+              </span>
+            </h2>
+          </div>
 
-          <span className="inline-flex px-5 py-2 rounded-full bg-red-50 text-[#e63946] text-sm font-semibold mb-5">
-            Featured Products
-          </span>
+          <Link
+            href="/products"
+            className="group hidden items-center gap-2 text-[14px] font-medium text-[#667085] transition-colors hover:text-[#e63946] sm:flex"
+          >
+            View All
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-4">
-            Latest{" "}
-            <span className="text-[#e63946]">
-              Printers
-            </span>
-          </h2>
-
-          <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Explore professional office printers,
-            multifunction devices, and business
-            printing solutions.
-          </p>
-
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-1"
+              strokeWidth={1.8}
+            />
+          </Link>
         </div>
 
-        {/* Slider */}
-        <div className="relative">
+        <div className="mt-9 grid grid-cols-2 items-stretch gap-3 sm:mt-10 sm:gap-5 md:grid-cols-3 lg:mt-12 lg:grid-cols-4 lg:gap-6 xl:gap-7">
+          {validProducts.map((product) => (
+            <ProductCard
+              key={product._id || product.id || product.slug}
+              product={product}
+            />
+          ))}
+        </div>
 
-          {/* LEFT BUTTON */}
-          <button
-            onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className={`
-              absolute left-0 top-1/2 -translate-y-1/2 z-20
-              w-10 h-10 md:w-12 md:h-12 rounded-full
-              flex items-center justify-center
-              border transition-all duration-300
-
-              ${canScrollLeft
-                ? "bg-white text-slate-700 border-slate-200 shadow-lg hover:bg-[#e63946] hover:text-white hover:border-[#e63946]"
-                : "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed"
-              }
-            `}
+        <div className="mt-8 flex justify-center sm:hidden">
+          <Link
+            href="/products"
+            className="group inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border border-[#d9dde5] bg-white px-6 text-[13.5px] font-medium text-[#374151] transition-all hover:border-[#e63946] hover:text-[#e63946]"
           >
-            <ChevronLeft size={20} />
-          </button>
+            View All Products
 
-          {/* RIGHT BUTTON */}
-          <button
-            onClick={() => scroll("right")}
-            disabled={!canScrollRight}
-            className={`
-              absolute right-0 top-1/2 -translate-y-1/2 z-20
-              w-10 h-10 md:w-12 md:h-12 rounded-full
-              flex items-center justify-center
-              border transition-all duration-300
-
-              ${canScrollRight
-                ? "bg-white text-slate-700 border-slate-200 shadow-lg hover:bg-[#e63946] hover:text-white hover:border-[#e63946]"
-                : "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed"
-              }
-            `}
-          >
-            <ChevronRight size={20} />
-          </button>
-
-          {/* Products */}
-          <div
-            ref={sliderRef}
-            className="flex gap-4 lg:gap-6
-              overflow-x-auto
-              overflow-y-visible
-              scroll-smooth
-              snap-x snap-mandatory
-              no-scrollbar
-              px-12 lg:px-14
-              py-6
-            "
-          >
-
-            {products.map((product, index) => (
-
-              <motion.div
-                key={product._id || product.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.05,
-                }}
-                viewport={{ once: true }}
-                className="
-                  snap-start
-                  flex-shrink-0
-                  w-[78%]
-                  sm:w-[48%]
-                  md:w-[31%]
-                  lg:w-[25%]
-                  xl:w-[20%]
-                "
-              >
-                <ProductCard product={product} />
-              </motion.div>
-
-            ))}
-
-          </div>
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-1"
+              strokeWidth={1.8}
+            />
+          </Link>
         </div>
       </div>
     </section>

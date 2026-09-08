@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -10,8 +11,9 @@ interface Brand {
   image: string;
 }
 
-export default function BrandGrid() {
+export default function BrandsSupport() {
   const [brands, setBrands] = useState<Brand[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -23,52 +25,85 @@ export default function BrandGrid() {
         setBrands(res.data?.data || []);
       } catch (error) {
         console.error("Failed to fetch brands:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchBrands();
   }, []);
 
+  if (loading) {
+    return (
+      <section className="border-y border-[#f2f4f7] bg-white py-7">
+        <div className="mx-auto max-w-[1680px] px-5 sm:px-8 lg:px-10 xl:px-14">
+          <div className="flex items-center justify-center gap-8 overflow-hidden">
+            {Array.from({ length: 7 }).map((_, index) => (
+              <div
+                key={index}
+                className="
+                  h-[46px] w-[130px] shrink-0
+                  animate-pulse rounded-lg bg-[#f5f6f7]
+                "
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   if (!brands.length) return null;
 
-  // Make sure the carousel is always filled.
-  const minimumBrands = 12;
-
-  const repeatCount = Math.max(
-    2,
-    Math.ceil(minimumBrands / brands.length)
-  );
-
-  const brandSet = Array.from(
-    { length: repeatCount },
-    () => brands
-  ).flat();
-
-  // Duplicate the complete set for seamless looping.
-  const infiniteBrands = [...brandSet, ...brandSet];
-
   return (
-    <section className="overflow-hidden border-y border-slate-100 bg-gradient-to-b from-white via-slate-50/70 to-white py-5 sm:py-6">
+    <section
+      className="
+        relative
+        overflow-hidden
+        border-y
+        border-[#f2f4f7]
+        bg-white
+        py-7
+
+        sm:py-8
+        lg:py-9
+      "
+    >
       {/* Heading */}
-      <div className="mx-auto mb-4 px-6 text-center sm:mb-5">
-       <span className="inline-block rounded-full bg-red-50 px-5 py-2 text-sm font-semibold text-[#e63946]">
-            Trusted Printer Brands
-          </span>
+      <div className="mx-auto mb-5 max-w-[1680px] px-5 text-center sm:px-8">
+        <p
+          className="
+            text-[11px]
+            font-medium
+            uppercase
+            tracking-[0.16em]
+            text-[#98a2b3]
+
+            sm:text-[12px]
+          "
+        >
+          Trusted Brands We Supply
+        </p>
       </div>
 
-      {/* Carousel */}
+      {/* Marquee */}
       <div className="relative w-full overflow-hidden">
         {/* Left fade */}
         <div
           className="
             pointer-events-none
-            absolute inset-y-0 left-0 z-10
-            w-12
+            absolute
+            inset-y-0
+            left-0
+            z-20
+            w-[60px]
             bg-gradient-to-r
             from-white
+            via-white/90
             to-transparent
-            sm:w-20
-            md:w-28
+
+            sm:w-[100px]
+            lg:w-[150px]
           "
         />
 
@@ -76,68 +111,85 @@ export default function BrandGrid() {
         <div
           className="
             pointer-events-none
-            absolute inset-y-0 right-0 z-10
-            w-12
+            absolute
+            inset-y-0
+            right-0
+            z-20
+            w-[60px]
             bg-gradient-to-l
             from-white
+            via-white/90
             to-transparent
-            sm:w-20
-            md:w-28
+
+            sm:w-[100px]
+            lg:w-[150px]
           "
         />
 
-        {/* Infinite carousel */}
         <motion.div
           className="flex w-max items-center"
           animate={{
             x: ["0%", "-50%"],
           }}
           transition={{
-            duration: 25,
+            duration: 30,
             ease: "linear",
             repeat: Infinity,
           }}
         >
-          {infiniteBrands.map((brand, index) => (
+          {/* Duplicate brands for seamless infinite loop */}
+          {[...brands, ...brands].map((brand, index) => (
             <div
               key={`${brand._id}-${index}`}
               className="
+                group
+                mx-5
                 flex
-                h-14
-                w-[135px]
+                h-[58px]
+                w-[120px]
                 shrink-0
                 items-center
                 justify-center
-                px-4
 
-                sm:h-16
-                sm:w-[170px]
-                sm:px-5
+                sm:mx-7
+                sm:h-[64px]
+                sm:w-[145px]
 
-                md:w-[200px]
+                md:mx-8
+                md:w-[155px]
 
-                lg:w-[220px]
+                lg:mx-10
+                lg:h-[70px]
+                lg:w-[170px]
               "
             >
-              <img
+              <Image
                 src={brand.image}
                 alt={brand.name}
-                loading="lazy"
-                draggable={false}
+                width={180}
+                height={80}
                 className="
-                  h-10
-                  max-w-[130px]
+                  h-auto
+                  max-h-[36px]
+                  w-auto
+                  max-w-[110px]
                   object-contain
-                  opacity-80
-                  transition-opacity
+
+                  opacity-60
+                  grayscale
+
+                  transition-all
                   duration-300
-                  hover:opacity-100
 
-                  sm:h-10
-                  sm:max-w-[145px]
+                  group-hover:scale-105
+                  group-hover:opacity-100
+                  group-hover:grayscale-0
 
-                  md:h-11
-                  md:max-w-[155px]
+                  sm:max-h-[40px]
+                  sm:max-w-[130px]
+
+                  lg:max-h-[44px]
+                  lg:max-w-[150px]
                 "
               />
             </div>

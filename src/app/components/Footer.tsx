@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import {
   Facebook,
@@ -9,14 +8,11 @@ import {
   ChevronRight,
   Mail,
   Phone,
-  MapPin
+  MapPin,
+  ArrowUpRight,
 } from "lucide-react";
 
-import {
-  FaXTwitter,
-  FaPinterestP,
-} from "react-icons/fa6";
-
+import { FaXTwitter, FaPinterestP } from "react-icons/fa6";
 
 interface SubmenuItem {
   name: string;
@@ -32,59 +28,53 @@ interface NavItem {
 interface FooterProps {
   navLinks: NavItem[];
 }
-// import {
-//   Phone,
-//   Mail,
-//   MapPin,
-//   Facebook,
-//   Instagram,
-//   Linkedin,
-//   ChevronRight,
-// } from "lucide-react";
-
-
 
 export default function Footer({ navLinks }: FooterProps) {
   const productMenus = navLinks
     ?.filter((item) => item.href.startsWith("/products"))
     ?.slice(0, 4);
-  const servicesMenu = navLinks.find(
-    (item) => item.name === "Services"
+
+  const servicesMenu = navLinks?.find(
+    (item) => item.name.toLowerCase() === "services"
   );
+
   return (
-    <footer className="relative overflow-hidden bg-white border-t border-slate-200">
-      {/* Glow */}
-      <div className="absolute top-0 left-0 w-80 h-80 bg-red-100 blur-3xl rounded-full opacity-60"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-slate-100 blur-3xl rounded-full opacity-80"></div>
+    <footer className="relative overflow-hidden border-t border-[#eaecf0] bg-white">
+      {/* Very subtle background accent */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-40 -right-40 h-[420px] w-[420px] rounded-full bg-[#e63946]/[0.02] blur-3xl"
+      />
 
-      {/* Main Footer */}
-      <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      {/* ================= MAIN FOOTER ================= */}
+      <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-8 pt-12 sm:px-7 sm:pb-9 sm:pt-14 md:px-10 md:pt-16 lg:px-12 lg:pb-10 lg:pt-20 xl:px-16 2xl:px-20">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 lg:grid-cols-[1.35fr_0.75fr_0.9fr_1.2fr] lg:gap-10 xl:gap-14">
+          
+          {/* ================= COMPANY ================= */}
+          <div className="min-w-0 lg:max-w-[390px]">
+            <Link href="/" className="inline-flex">
+              <img
+                src="/nexprint.PNG"
+                alt="Nexprint Office Equipments LLC"
+                className="h-12 w-auto object-contain sm:h-[52px]"
+              />
+            </Link>
 
-          {/* Company */}
-          <div>
-            <img
-              src="/nexprint.PNG"
-              alt="Logo"
-              className="h-14 w-auto object-contain mb-6"
-            />
-
-            <p className="text-slate-500 leading-relaxed text-sm mb-6">
-              Professional printer sales, rental, AMC support,
-              consumables, and repair solutions for businesses
-              across Abu Dhabi and UAE.
+            <p className="mt-5 max-w-[370px] text-[13.5px] font-normal leading-[1.75] text-[#667085] sm:text-[14px]">
+              Professional printer sales, rental, AMC, repair and consumable
+              solutions for businesses across Abu Dhabi and the UAE.
             </p>
 
             {/* Social */}
-            <div className="flex items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-2.5">
               <a
                 href="https://facebook.com/nexprintuae"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center hover:bg-[#e63946] hover:border-[#e63946] hover:text-white transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#e4e7ec] bg-white text-[#667085] transition-all duration-300 hover:border-[#e63946] hover:bg-[#e63946] hover:text-white"
               >
-                <Facebook size={18} />
+                <Facebook size={16} strokeWidth={1.8} />
               </a>
 
               <a
@@ -92,19 +82,19 @@ export default function Footer({ navLinks }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center hover:bg-[#e63946] hover:border-[#e63946] hover:text-white transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#e4e7ec] bg-white text-[#667085] transition-all duration-300 hover:border-[#e63946] hover:bg-[#e63946] hover:text-white"
               >
-                <Instagram size={18} />
+                <Instagram size={16} strokeWidth={1.8} />
               </a>
 
               <a
                 href="https://x.com/nexprintuae"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="X (Twitter)"
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center hover:bg-[#e63946] hover:border-[#e63946] hover:text-white transition-all"
+                aria-label="X"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#e4e7ec] bg-white text-[#667085] transition-all duration-300 hover:border-[#e63946] hover:bg-[#e63946] hover:text-white"
               >
-                <FaXTwitter size={16} />
+                <FaXTwitter size={14} />
               </a>
 
               <a
@@ -112,9 +102,9 @@ export default function Footer({ navLinks }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center hover:bg-[#e63946] hover:border-[#e63946] hover:text-white transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#e4e7ec] bg-white text-[#667085] transition-all duration-300 hover:border-[#e63946] hover:bg-[#e63946] hover:text-white"
               >
-                <Youtube size={18} />
+                <Youtube size={17} strokeWidth={1.8} />
               </a>
 
               <a
@@ -122,159 +112,196 @@ export default function Footer({ navLinks }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Pinterest"
-                className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center hover:bg-[#e63946] hover:border-[#e63946] hover:text-white transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#e4e7ec] bg-white text-[#667085] transition-all duration-300 hover:border-[#e63946] hover:bg-[#e63946] hover:text-white"
               >
-                <FaPinterestP size={16} />
+                <FaPinterestP size={14} />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-6">
-              Products
-            </h3>
+          {/* ================= PRODUCTS ================= */}
+          <div className="min-w-0">
+            <FooterHeading title="Products" />
 
-            <ul className="space-y-4">
-              {productMenus?.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    href={item.href}
-                    className="group flex items-center gap-2 text-slate-600 hover:text-[#e63946] transition-colors"
-                  >
-                    <ChevronRight
-                      size={16}
-                      className="text-[#e63946] group-hover:translate-x-1 transition-transform"
-                    />
-
+            <ul className="mt-5 space-y-3">
+              {productMenus?.map((item) => (
+                <li key={item.href}>
+                  <FooterLink href={item.href}>
                     {item.name}
-                  </Link>
+                  </FooterLink>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/products"
+              className="group mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-[#e63946]"
+            >
+              View All
+              <ArrowUpRight
+                size={14}
+                strokeWidth={1.8}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
+          </div>
+
+          {/* ================= SERVICES ================= */}
+          <div className="min-w-0">
+            <FooterHeading title="Services" />
+
+            <ul className="mt-5 space-y-3">
+              {servicesMenu?.submenu?.slice(0, 6).map((item) => (
+                <li key={item.href}>
+                  <FooterLink href={item.href}>
+                    {item.name}
+                  </FooterLink>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-6">
-              Services
-            </h3>
-            <ul className="space-y-4">
-              {servicesMenu?.submenu?.map(
-                (item: SubmenuItem, index: number) => (
-                  <li key={index}>
-                    <Link
-                      href={item.href}
-                      className="group flex items-center gap-2 text-slate-600 hover:text-[#e63946] transition-colors"
-                    >
-                      <ChevronRight
-                        size={16}
-                        className="text-[#e63946] group-hover:translate-x-1 transition-transform"
-                      />
+          {/* ================= CONTACT ================= */}
+          <div className="min-w-0">
+            <FooterHeading title="Contact Us" />
 
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-            </ul>
-          </div>
+            <div className="mt-5 space-y-5">
+              {/* Phone */}
+              <a
+                href="tel:+971555328978"
+                className="group flex items-start gap-3.5"
+              >
+                <ContactIcon>
+                  <Phone size={17} strokeWidth={1.8} />
+                </ContactIcon>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-xl font-bold text-slate-900 mb-6">
-              Contact Info
-            </h3>
-
-            <div className="space-y-5">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center">
-                  <Phone
-                    size={18}
-                    className="text-[#e63946]"
-                  />
-                </div>
-
-                <div>
-                  <p className="text-slate-400 text-sm mb-1">
+                <div className="min-w-0 pt-0.5">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#98a2b3]">
                     Call Us
                   </p>
 
-                  <a
-                    href="tel:+971 55 532 8978"
-                    className="font-semibold text-slate-900 hover:text-[#e63946]"
-                  >
+                  <p className="mt-1 text-[13.5px] font-medium text-[#344054] transition-colors group-hover:text-[#e63946] sm:text-[14px]">
                     +971 55 532 8978
-                  </a>
+                  </p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center">
-                  <Mail
-                    size={18}
-                    className="text-[#e63946]"
-                  />
-                </div>
+              {/* Email */}
+              <a
+                href="mailto:sales@nexprint.ae"
+                className="group flex items-start gap-3.5"
+              >
+                <ContactIcon>
+                  <Mail size={17} strokeWidth={1.8} />
+                </ContactIcon>
 
-                <div>
-                  <p className="text-slate-400 text-sm mb-1">
+                <div className="min-w-0 pt-0.5">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#98a2b3]">
                     Email
                   </p>
 
-                  <a
-                    href="mailto:sales@nexprint.ae"
-                    className="font-semibold text-slate-900 hover:text-[#e63946]"
-                  >
+                  <p className="mt-1 break-all text-[13.5px] font-medium text-[#344054] transition-colors group-hover:text-[#e63946] sm:text-[14px]">
                     sales@nexprint.ae
-                  </a>
+                  </p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center">
-                  <MapPin
-                    size={18}
-                    className="text-[#e63946]"
-                  />
-                </div>
+              {/* Location */}
+              <div className="flex items-start gap-3.5">
+                <ContactIcon>
+                  <MapPin size={17} strokeWidth={1.8} />
+                </ContactIcon>
 
-                <div>
-                  <p className="text-slate-400 text-sm mb-1">
+                <div className="min-w-0 pt-0.5">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-[#98a2b3]">
                     Location
                   </p>
 
-                  <h4 className="font-semibold text-slate-900 leading-relaxed">
-                   Mussafah M13, Abudhabi, UAE
-                  </h4>
+                  <p className="mt-1 max-w-[250px] text-[13.5px] font-medium leading-[1.6] text-[#344054] sm:text-[14px]">
+                    Mussafah M13, Abu Dhabi, UAE
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-200 mt-14 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-sm text-center md:text-left">
-            © 2026 NexPrint. All rights reserved.
-          </p>
+        {/* ================= BOTTOM ================= */}
+        <div className="mt-12 border-t border-[#eaecf0] pt-6 sm:mt-14 lg:mt-16">
+          <div className="flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
+            <p className="text-[12.5px] font-normal text-[#98a2b3] sm:text-[13px]">
+              © 2026 Nexprint Office Equipments LLC. All rights reserved.
+            </p>
 
-          <div className="flex items-center gap-6 text-sm text-slate-500">
-            {/* <Link
-              href="/privacy-policy"
-              className="hover:text-[#e63946] transition-colors"
-            >
-              Privacy Policy
-            </Link>
+            <div className="flex items-center justify-center gap-5 sm:justify-end">
+              <Link
+                href="/privacy-policy"
+                className="text-[12.5px] font-normal text-[#667085] transition-colors duration-300 hover:text-[#e63946] sm:text-[13px]"
+              >
+                Privacy Policy
+              </Link>
 
-            <Link
-              href="/terms"
-              className="hover:text-[#e63946] transition-colors"
-            >
-              Terms & Conditions
-            </Link> */}
+              <span className="h-3 w-px bg-[#d0d5dd]" />
+
+              <Link
+                href="/terms"
+                className="text-[12.5px] font-normal text-[#667085] transition-colors duration-300 hover:text-[#e63946] sm:text-[13px]"
+              >
+                Terms & Conditions
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+/* ================= REUSABLE FOOTER PARTS ================= */
+
+function FooterHeading({ title }: { title: string }) {
+  return (
+    <div>
+      <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-[#27303f] sm:text-[16px]">
+        {title}
+      </h3>
+
+      <span className="mt-2 block h-[2px] w-7 rounded-full bg-[#e63946]" />
+    </div>
+  );
+}
+
+function FooterLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex items-center gap-1.5 text-[13.5px] font-normal text-[#667085] transition-colors duration-300 hover:text-[#e63946] sm:text-[14px]"
+    >
+      <ChevronRight
+        size={13}
+        strokeWidth={1.8}
+        className="shrink-0 text-[#e63946]/70 transition-transform duration-300 group-hover:translate-x-0.5"
+      />
+
+      <span>{children}</span>
+    </Link>
+  );
+}
+
+function ContactIcon({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-[#e63946]/10 bg-[#e63946]/[0.06] text-[#e63946]">
+      {children}
+    </div>
   );
 }

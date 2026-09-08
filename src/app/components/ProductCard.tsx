@@ -1,76 +1,61 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-import { addToCart } from "@/lib/cart";
-import type { ProductCard } from "@/types/product";
+import type { Product } from "@/types/product";
 
 interface ProductCardProps {
-  product: ProductCard;
+  product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const productUrl = `/product/${product.slug}`;
+export default function ProductCard({
+  product,
+}: ProductCardProps) {
+  if (!product?.slug) return null;
 
   return (
-    <article className="group bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col h-full hover:shadow-xl hover:border-red-100 transition-all duration-300">
-
-      {/* IMAGE */}
-      <Link href={productUrl} className="block">
-        <div className="relative bg-slate-50 aspect-square p-3 sm:p-4 overflow-hidden">
-
-          <img
+    <Link
+      href={`/products/${product.slug}`}
+      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[18px] border border-[#eaecf0] bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#e63946]/20 hover:shadow-[0_18px_45px_rgba(16,24,40,0.07)] sm:rounded-[20px]"
+    >
+      <div className="relative aspect-square w-full overflow-hidden bg-[#f8f9fa]">
+        {product.image ? (
+          <Image
             src={product.image}
-            alt={product.name}
-            loading="lazy"
-            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+            alt={product.name || "Product"}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-[1.04] sm:p-5 lg:p-6"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center text-[12px] text-[#98a2b3]">
+            No Image
+          </div>
+        )}
+
+        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#e63946] transition-all duration-300 group-hover:w-full" />
+      </div>
+
+      <div className="flex flex-1 flex-col p-4 sm:p-5 lg:p-6">
+        {product.brand?.name && (
+          <span className="mb-2 line-clamp-1 text-[10px] font-medium uppercase tracking-[0.11em] text-[#e63946] sm:text-[11px]">
+            {product.brand.name}
+          </span>
+        )}
+
+        <h3 className="line-clamp-2 text-[14px] font-medium leading-[1.45] text-[#27303f] sm:text-[16px] lg:text-[17px]">
+          {product.name}
+        </h3>
+
+        <div className="mt-auto flex items-center gap-1.5 pt-4 text-[12.5px] font-medium text-[#e63946] sm:text-[13.5px]">
+          View Product
+
+          <ArrowRight
+            className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+            strokeWidth={1.8}
           />
         </div>
-      </Link>
-
-      {/* CONTENT */}
-      <div className="flex flex-col flex-1 p-3 sm:p-4">
-
-        <p className="text-[11px] text-slate-500 mb-1 truncate">
-          {product?.brand?.name}
-        </p>
-
-        <Link href={productUrl}>
-          <h2 className="text-[13px] sm:text-[14px] font-semibold text-slate-900 line-clamp-2 hover:text-[#e63946] transition-colors">
-            {product.name}
-          </h2>
-        </Link>
-
-        {/* PRICE */}
-        {/* {product.price && (
-          <div className="mt-3">
-            <span className="text-lg font-bold text-slate-900">
-              AED {product.price}
-            </span>
-          </div>
-        )} */}
-
-        {/* ACTIONS */}
-        <div className="mt-auto pt-4 flex gap-2">
-
-          <button
-            onClick={() => addToCart(product)}
-            className="flex-1 h-11 rounded-xl bg-[#e63946] text-white text-sm font-semibold flex items-center justify-center gap-2 hover:bg-red-700 transition-colors"
-          >
-            <ShoppingCart size={15} />
-            Add To Cart
-          </button>
-
-          {/* <Link
-            href={productUrl}
-            className="h-11 w-11 rounded-xl border border-slate-200 flex items-center justify-center hover:border-[#e63946] hover:text-[#e63946] transition-all"
-          >
-            <ArrowRight size={16} />
-          </Link> */}
-
-        </div>
       </div>
-    </article>
+    </Link>
   );
 }
