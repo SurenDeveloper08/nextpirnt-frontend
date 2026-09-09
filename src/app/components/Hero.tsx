@@ -1,7 +1,7 @@
 // components/ITAutomationHero.tsx
 
 import Image from "next/image";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 
 export default function ITAutomationHero() {
   return (
@@ -268,82 +268,68 @@ export default function ITAutomationHero() {
                 lg:mt-[clamp(22px,2.8vh,32px)]
               "
             >
+
               <a
-                href="https://wa.me/971526515283?text=Hello%20Nexprint%20Office%20Equipments%20LLC,%20I%20would%20like%20to%20get%20a%20quote."
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/services"
                 className="
-                  inline-flex
-                  min-h-[52px]
-                  items-center
-                  justify-center
-                  gap-3
-
-                  rounded-full
-                  bg-[#e63946]
-
-                  px-7
-
-                  text-[15px]
-                  font-medium
-                  text-white
-
-                  shadow-[0_10px_24px_rgba(230,57,70,0.15)]
-
-                  transition-all
-                  duration-200
-
-                  hover:-translate-y-0.5
-                  hover:bg-[#d9313e]
-                  hover:shadow-[0_14px_30px_rgba(230,57,70,0.2)]
-
-                  sm:min-h-[54px]
-                  sm:px-8
-                  sm:text-[15.5px]
-                "
+    inline-flex
+    min-h-[52px]
+    items-center
+    justify-center
+    gap-3
+    rounded-full
+    bg-[#e63946]
+    px-7
+    text-[15px]
+    font-medium
+    text-white
+    shadow-[0_10px_24px_rgba(230,57,70,0.15)]
+    transition-all
+    duration-200
+    hover:-translate-y-0.5
+    hover:bg-[#d9313e]
+    hover:shadow-[0_14px_30px_rgba(230,57,70,0.2)]
+    sm:min-h-[54px]
+    sm:px-8
+    sm:text-[15.5px]
+  "
               >
-                Get a Free Quote
+                Explore Our Services
 
                 <ArrowRight className="h-4 w-4" />
               </a>
-
               <a
-                href="tel:+971555328978"
+                href="/contact"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="
-                  inline-flex
-                  min-h-[52px]
-                  items-center
-                  justify-center
-                  gap-3
-
-                  rounded-full
-
-                  border
-                  border-[#d9dde5]
-
-                  bg-white
-
-                  px-7
-
-                  text-[15px]
-                  font-medium
-                  text-[#374151]
-
-                  transition-all
-                  duration-200
-
-                  hover:border-[#e63946]
-                  hover:text-[#e63946]
-                  hover:shadow-[0_8px_20px_rgba(15,23,42,0.04)]
-
-                  sm:min-h-[54px]
-                  sm:px-8
-                  sm:text-[15.5px]
-                "
+    inline-flex
+    min-h-[52px]
+    items-center
+    justify-center
+    gap-3
+    rounded-full
+    border
+    border-[#d9dde5]
+    bg-white
+    px-7
+    text-[15px]
+    font-medium
+    text-[#374151]
+    transition-all
+    duration-200
+    hover:border-[#e63946]
+    hover:text-[#e63946]
+    hover:shadow-[0_8px_20px_rgba(15,23,42,0.04)]
+    sm:min-h-[54px]
+    sm:px-8
+    sm:text-[15.5px]
+  "
               >
-                <Phone className="h-4 w-4" />
-                Call Now
+                <MessageCircle className="h-4 w-4" />
+                Get a Free Quote
               </a>
+
             </div>
 
             {/* Trust features */}

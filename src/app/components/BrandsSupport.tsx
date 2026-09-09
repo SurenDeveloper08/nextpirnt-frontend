@@ -169,28 +169,26 @@ export default function BrandsSupport() {
                 width={180}
                 height={80}
                 className="
-                  h-auto
-                  max-h-[36px]
-                  w-auto
-                  max-w-[110px]
-                  object-contain
+  h-auto
+  max-h-[36px]
+  w-auto
+  max-w-[110px]
+  object-contain
 
-                  opacity-60
-                  grayscale
+  opacity-85
 
-                  transition-all
-                  duration-300
+  transition-all
+  duration-300
 
-                  group-hover:scale-105
-                  group-hover:opacity-100
-                  group-hover:grayscale-0
+  group-hover:scale-105
+  group-hover:opacity-100
 
-                  sm:max-h-[40px]
-                  sm:max-w-[130px]
+  sm:max-h-[40px]
+  sm:max-w-[130px]
 
-                  lg:max-h-[44px]
-                  lg:max-w-[150px]
-                "
+  lg:max-h-[44px]
+  lg:max-w-[150px]
+"
               />
             </div>
           ))}
