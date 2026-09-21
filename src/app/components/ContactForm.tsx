@@ -1,213 +1,408 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  ArrowRight,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
+
+const initialFormData = {
+  name: "",
+  email: "",
+  phone: "",
+  subject: "",
+  message: "",
+};
+
 const ContactForm = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-    });
+  const [formData, setFormData] = useState(initialFormData);
 
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState("");
-    const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-    // Auto hide alerts after 5 seconds
-    useEffect(() => {
-        if (!success && !error) return;
+  /* =========================================================
+     AUTO HIDE ALERT
+  ========================================================= */
 
-        const timer = setTimeout(() => {
-            setSuccess("");
-            setError("");
-        }, 5000);
+  useEffect(() => {
+    if (!success && !error) return;
 
-        return () => clearTimeout(timer);
-    }, [success, error]);
+    const timer = setTimeout(() => {
+      setSuccess("");
+      setError("");
+    }, 5000);
 
-    const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    return () => clearTimeout(timer);
+  }, [success, error]);
+
+  /* =========================================================
+     HANDLE CHANGE
+  ========================================================= */
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  /* =========================================================
+     HANDLE SUBMIT
+  ========================================================= */
+
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (loading) return;
+
+    setLoading(true);
+    setSuccess("");
+    setError("");
+
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/contact`,
+        formData
+      );
+
+      setSuccess(
+        data?.message ||
+          "Thank you! Your enquiry has been sent successfully."
+      );
+
+      setFormData(initialFormData);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(
+          err.response?.data?.message ||
+            err.message ||
+            "Something went wrong. Please try again."
+        );
+      } else {
+        setError(
+          "Something went wrong. Please try again."
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="w-full">
+      {/* =====================================================
+          ALERTS
+      ===================================================== */}
+
+      {success && (
+        <div
+          role="status"
+          className="mb-6 flex items-start gap-3 rounded-[12px] border border-emerald-200 bg-emerald-50 px-4 py-3.5"
         >
-    ) => {
-        const { name, value } = e.target;
+          <CheckCircle2
+            className="mt-0.5 h-[18px] w-[18px] shrink-0 text-emerald-600"
+            strokeWidth={1.8}
+          />
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (
-        e: React.FormEvent<HTMLFormElement>
-    ) => {
-        e.preventDefault();
-
-        setLoading(true);
-        setSuccess("");
-        setError("");
-
-        try {
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/v1/contact`,
-                formData
-            );
-
-            setSuccess(
-                data.message ||
-                "Thank you! Your message has been sent successfully."
-            );
-
-            // Reset form
-            setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                subject: "",
-                message: "",
-            });
-        } catch (err: any) {
-  setError(
-    err.response?.data?.message ||
-    err.message ||
-    "Something went wrong. Please try again."
-  );
-} finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-            {/* Heading */}
-            <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-900 uppercase">
-                    Get in Touch
-                </h2>
-
-                <p className="text-slate-500 mt-3">
-                    We provide fast printer services across Abu Dhabi, Dubai, and nearby
-                    areas.
-                </p>
-            </div>
-
-            {/* Success Message */}
-            {success && (
-                <div className="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700">
-                    {success}
-                </div>
-            )}
-
-            {/* Error Message */}
-            {error && (
-                <div className="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
-                    {error}
-                </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Full Name */}
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
-                        Full Name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="John Doe"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
-                    />
-                </div>
-
-                {/* Email */}
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="john@company.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
-                    />
-                </div>
-
-                {/* Phone */}
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
-                        Phone Number
-                    </label>
-                    <input
-                        type="text"
-                        name="phone"
-                        placeholder="+971 55 532 8978"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
-                    />
-                </div>
-
-                {/* Service */}
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
-                        Service Required
-                    </label>
-
-                    <select
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
-                    >
-                        <option value="">Select Service</option>
-                        <option value="Printer AMC">Printer AMC</option>
-                        <option value="Printer Rental">Printer Rental</option>
-                        <option value="Repair Services">Repair Services</option>
-                        <option value="Consumables">Consumables</option>
-                        <option value="Printer for Sale">Printer for Sale</option>
-                        <option value="Office Stationery">Office Stationery</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                {/* Message */}
-                <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">
-                        Message
-                    </label>
-
-                    <textarea
-                        name="message"
-                        rows={5}
-                        placeholder="Tell us about your requirement..."
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
-                    />
-                </div>
-
-                {/* Submit */}
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                    {loading ? "Sending..." : "Send Message"}
-                </button>
-            </form>
+          <p className="text-[13.5px] leading-[1.6] text-emerald-700">
+            {success}
+          </p>
         </div>
-    );
+      )}
+
+      {error && (
+        <div
+          role="alert"
+          className="mb-6 flex items-start gap-3 rounded-[12px] border border-red-200 bg-red-50 px-4 py-3.5"
+        >
+          <AlertCircle
+            className="mt-0.5 h-[18px] w-[18px] shrink-0 text-[#e63946]"
+            strokeWidth={1.8}
+          />
+
+          <p className="text-[13.5px] leading-[1.6] text-red-700">
+            {error}
+          </p>
+        </div>
+      )}
+
+      {/* =====================================================
+          FORM
+      ===================================================== */}
+
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-5"
+      >
+        {/* NAME + EMAIL */}
+
+        <div className="grid gap-5 md:grid-cols-2">
+          <FormField
+            label="Full Name"
+            required
+          >
+            <input
+              type="text"
+              name="name"
+              autoComplete="name"
+              placeholder="Your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className={inputClass}
+            />
+          </FormField>
+
+          <FormField
+            label="Email Address"
+            required
+          >
+            <input
+              type="email"
+              name="email"
+              autoComplete="email"
+              placeholder="you@company.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className={inputClass}
+            />
+          </FormField>
+        </div>
+
+        {/* PHONE + SERVICE */}
+
+        <div className="grid gap-5 md:grid-cols-2">
+          <FormField
+            label="Phone Number"
+            required
+          >
+            <input
+              type="tel"
+              name="phone"
+              autoComplete="tel"
+              placeholder="+971 50 000 0000"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              className={inputClass}
+            />
+          </FormField>
+
+          <FormField
+            label="Service Required"
+            required
+          >
+            <div className="relative">
+              <select
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                required
+                className={`${inputClass} cursor-pointer appearance-none pr-11`}
+              >
+                <option value="">
+                  Select a service
+                </option>
+
+                <option value="Printer Sales">
+                  Printer Sales
+                </option>
+
+                <option value="Printer Rental">
+                  Printer Rental
+                </option>
+
+                <option value="Printer AMC">
+                  Printer AMC
+                </option>
+
+                <option value="Repair Services">
+                  Printer Repair
+                </option>
+
+                <option value="Consumables">
+                  Printer Consumables
+                </option>
+
+                <option value="Office Equipment">
+                  Office Equipment
+                </option>
+
+                <option value="Office Stationery">
+                  Office Stationery
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+              </select>
+
+              {/* custom select arrow */}
+              <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.5 5.25L7 8.75L10.5 5.25"
+                    stroke="#98a2b3"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </FormField>
+        </div>
+
+        {/* MESSAGE */}
+
+        <FormField
+          label="Message"
+          required
+        >
+          <textarea
+            name="message"
+            rows={5}
+            placeholder="Tell us about your requirement..."
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className={`${inputClass} min-h-[140px] resize-y`}
+          />
+        </FormField>
+
+        {/* SUBMIT */}
+
+        <div className="pt-1">
+          <button
+            type="submit"
+            disabled={loading}
+            className="
+              group
+              inline-flex
+              min-h-[48px]
+              w-full
+              items-center
+              justify-center
+              gap-2.5
+              rounded-full
+              bg-[#e63946]
+              px-7
+              text-[14px]
+              font-medium
+              text-white
+              transition-all
+              duration-300
+              hover:bg-[#cf303d]
+              hover:shadow-[0_10px_30px_rgba(230,57,70,0.18)]
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+              sm:w-auto
+            "
+          >
+            {loading ? (
+              <>
+                <Loader2
+                  className="h-4 w-4 animate-spin"
+                  strokeWidth={1.8}
+                />
+
+                Sending...
+              </>
+            ) : (
+              <>
+                Send Enquiry
+
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  strokeWidth={1.8}
+                />
+              </>
+            )}
+          </button>
+
+          <p className="mt-3 text-[11.5px] leading-[1.6] text-[#98a2b3]">
+            Our team will contact you regarding your enquiry.
+          </p>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default ContactForm;
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+function FormField({
+  label,
+  required = false,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-[13px] font-medium text-[#475467]">
+        {label}
+
+        {required && (
+          <span
+            className="ml-1 text-[#e63946]"
+            aria-hidden="true"
+          >
+            *
+          </span>
+        )}
+      </label>
+
+      {children}
+    </div>
+  );
+}
+
+/* =========================================================
+   COMMON INPUT STYLE
+========================================================= */
+
+const inputClass = `
+  w-full
+  rounded-[12px]
+  border
+  border-[#dfe3e8]
+  bg-white
+  px-4
+  py-3
+  text-[14px]
+  text-[#27303f]
+  outline-none
+  transition-all
+  duration-200
+  placeholder:text-[#a7adb7]
+  hover:border-[#cfd4dc]
+  focus:border-[#e63946]
+  focus:ring-[3px]
+  focus:ring-[#e63946]/[0.07]
+`;

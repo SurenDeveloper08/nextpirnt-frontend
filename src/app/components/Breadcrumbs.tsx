@@ -1,92 +1,82 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { ChevronRight, Home } from "lucide-react";
 
-export default function Breadcrumbs() {
-  const pathname = usePathname();
+interface BreadcrumbsProps {
+  currentLabel?: string;
+}
 
-  const hiddenSegments = [
-    "category",
-    "product",
-    "service",
-  ];
-
-  const pathnames = pathname
-    .split("/")
-    .filter(
-      (segment) =>
-        segment &&
-        !hiddenSegments.includes(segment)
-    );
-
+export default function Breadcrumbs({
+  currentLabel,
+}: BreadcrumbsProps) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="mt-3"
+      className="mt-4"
     >
-      <ol className="flex flex-wrap items-center gap-2 text-sm">
+      <ol className="flex flex-wrap items-center gap-1.5 text-[12.5px] sm:text-[13px]">
 
+        {/* Home */}
         <li>
           <Link
             href="/"
-            className="text-slate-500 hover:text-[#e63946]"
+            className="inline-flex items-center gap-1.5 text-[#98a2b3] transition-colors duration-200 hover:text-[#e63946]"
           >
-            Home
+            <Home
+              size={13}
+              strokeWidth={1.8}
+            />
+
+            <span>Home</span>
           </Link>
         </li>
 
-        {pathnames.map(
-          (segment, index) => {
-            const href =
-              "/" +
-              pathname
-                .split("/")
-                .filter(Boolean)
-                .slice(0, index + 1)
-                .join("/");
+        <BreadcrumbSeparator />
 
-            const isLast =
-              index ===
-              pathnames.length - 1;
+        {/* Products */}
+        <li>
+          <Link
+            href="/products"
+            className="text-[#667085] transition-colors duration-200 hover:text-[#e63946]"
+          >
+            Products
+          </Link>
+        </li>
 
-            const label =
-              decodeURIComponent(
-                segment
-              )
-                .replace(/-/g, " ")
-                .replace(
-                  /\b\w/g,
-                  (char) =>
-                    char.toUpperCase()
-                );
+        {/* Current Category */}
+        {currentLabel && (
+          <>
+            <BreadcrumbSeparator />
 
-            return (
-              <li
-                key={segment}
-                className="flex items-center gap-2"
-              >
-                <span className="text-slate-400">
-                  /
-                </span>
-
-                {isLast ? (
-                  <span className="font-medium text-slate-900">
-                    {label}
-                  </span>
-                ) : (
-                  <Link
-                    href={href}
-                    className="text-slate-500 hover:text-[#e63946]"
-                  >
-                    {label}
-                  </Link>
-                )}
-              </li>
-            );
-          }
+            <li
+              className="max-w-[220px] truncate font-medium text-[#344054] sm:max-w-[350px]"
+              aria-current="page"
+              title={currentLabel}
+            >
+              {currentLabel}
+            </li>
+          </>
         )}
       </ol>
     </nav>
+  );
+}
+
+/* =========================================================
+   SEPARATOR
+========================================================= */
+
+function BreadcrumbSeparator() {
+  return (
+    <li
+      aria-hidden="true"
+      className="flex items-center text-[#c5c9d0]"
+    >
+      <ChevronRight
+        size={13}
+        strokeWidth={1.7}
+      />
+    </li>
   );
 }

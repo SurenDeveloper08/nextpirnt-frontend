@@ -50,7 +50,7 @@ export default function Header({ navLinks }: HeaderProps) {
 
     {
       name: "Products",
-      href: "/products",
+      href: "#",
       submenu: [
         {
           name: "Consumables",
