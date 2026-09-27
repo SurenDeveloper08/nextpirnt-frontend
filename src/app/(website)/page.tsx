@@ -216,16 +216,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const products = await getFeaturedProducts();
-   const about = await getAbout();
-   console.log(about);
-   
+  const about = await getAbout();
+
   return (
     <main
     // className="flex min-h-screen items-center justify-center bg-white"
     >
       <Hero />
       <BrandsSupport />
-      <AboutSection about={about}/>
+      <AboutSection about={about} />
       <Services />
 
       {/* <AMCPlans/> */}

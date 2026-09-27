@@ -40,6 +40,12 @@ export default function Header({ navLinks }: HeaderProps) {
     (item) => item.name.toLowerCase() === "services"
   );
 
+  const products = navLinks.find(
+    (item) => item.name.toLowerCase() === "products"
+  );
+
+console.log(navLinks);
+
   const menuItems: NavItem[] = [
     {
       name: "Home",
@@ -48,24 +54,7 @@ export default function Header({ navLinks }: HeaderProps) {
 
     ...(services ? [services] : []),
 
-    {
-      name: "Products",
-      href: "#",
-      submenu: [
-        {
-          name: "Consumables",
-          href: "/products/consumables",
-        },
-        {
-          name: "Printers & Machines",
-          href: "/products/printers-machines",
-        },
-        {
-          name: "Office Equipment",
-          href: "/products/office-equipments",
-        },
-      ],
-    },
+  ...(products ? [products] : []),
 
     {
       name: "About Us",

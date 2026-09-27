@@ -12,10 +12,11 @@ export default function ProductCard({
   product,
 }: ProductCardProps) {
   if (!product?.slug) return null;
+console.log(product);
 
   return (
     <Link
-      href={`/products/${product.slug}`}
+      href={`/products/${product.category?.slug}/${product.slug}`}
       aria-label={`View ${product.name}`}
       className="
         group
